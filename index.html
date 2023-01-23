@@ -23,7 +23,7 @@
                                     Привет, <br />
                                     <span class="header__gretting-text__blue">Александр!</span>
                                 </div>
-                                <div class="header__gear">
+                                <div class="header__gear" id="header-open-settings">
                                     <img src="./img/GearSix.svg" alt="" />
                                 </div>
                             </div>
@@ -41,8 +41,7 @@
                         <div class="header__right">
                             <div class="header__propgress-title">Прогресс</div>
                             <div class="header__progress-text">
-                                <span class="header__progress-text__blue">12/18 </span> задач
-                                выполнено
+                                <span class="header__progress-text__blue">12/18 </span> задач выполнено
                             </div>
                             <div class="header__progress-percentages">66%</div>
                             <div class="header__progress-shape">
@@ -54,10 +53,33 @@
                 <main ="page">
                     <div class="container">
                         <div class="page__add-container add-container">
-                            <div class="add-container__icon">
-                                <img src="./img/Plus.svg" alt="" />
+                            <div class="add-container__hidden-state" id="add-task-form-hidden-state">
+                                <div class="add-container__icon">
+                                    <img src="./img/Plus.svg" alt="" />
+                                </div>
+                                <div class="add-container__text">Введите название</div>
                             </div>
-                            <div class="add-container__text">Введите название</div>
+                            <div class="add-container__open-state" id="add-task-form-open-state">
+                                <input type="text" class="add-container__title" placeholder="Введите название…" />
+                                <input type="text" class="add-container__description" placeholder="Описание" />
+                                <input type="text" class="add-container__tags" placeholder="Укажите теги" />
+                                <div class="add-container__btns">
+                                    <div class="add-container_btn-left">
+                                        <button class="add-container__date">
+                                            <img src="./img/CalendarPlus.svg" alt="" />
+                                            <div class="add-container__date-text">Дата</div>
+                                        </button>
+                                        <button class="add-container__priorety">
+                                            <div class="add-container__priorety-text">Приоретет</div>
+                                            <img src="./img/CaretDown2.svg" alt="" />
+                                        </button>
+                                    </div>
+                                    <div class="add-container_btn-right">
+                                        <button class="btn btn_outline" id="add-form-close-btn">Отменить</button>
+                                        <button class="btn btn_solid">Добавить</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="page__filter filter">
@@ -92,12 +114,7 @@
                                 <div class="toolbar__search-icon">
                                     <img src="./img/MagnifyingGlass.svg" alt="" />
                                 </div>
-                                <input
-                                    type="text"
-                                    name="search"
-                                    placeholder="Поиск"
-                                    class="toolbar__input"
-                                />
+                                <input type="text" name="search" placeholder="Поиск" class="toolbar__input" />
                             </div>
                         </div>
 
@@ -108,19 +125,50 @@
                                     <div class="item-task__content">
                                         <div class="item-task__name">Оформить курсовую работу</div>
                                         <div class="item-task__description">
-                                            Курсовая работа по Ионов А.Г. на тему «Бережливое
-                                            производство»
+                                            Курсовая работа по Ионов А.Г. на тему «Бережливое производство»
                                         </div>
                                         <div class="item-task__tags tag">
-                                            <div class="tag__time">
+                                            <button class="tag__time">
                                                 <div class="tag__img">
                                                     <img src="./img/CalendarPlus.svg" alt="" />
                                                 </div>
                                                 <div class="tag__date">15.02</div>
-                                            </div>
+                                            </button>
                                             <ul class="tag__category">
                                                 <li class="tag__item">#Учёба</li>
                                                 <li class="tag__item">#Курсовая</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item-task__priority item-task__priority_red">
+                                        <img src="./img/FlagBanner.svg" alt="" />
+                                    </div>
+                                    <div class="item-task__btn-setting-block">
+                                        <div class="item-task__btn-settings-content">
+                                            <button class="item-task__btn-settings">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </button>
+                                            <ul class="item-settings">
+                                                <li class="item-settings__item">
+                                                    <a class="item-settings__link" href="#">
+                                                        <img src="./img/PencilLine.svg" alt="" class="item-settings__icon" />
+                                                        <div class="item-settings__text">Редактировать</div>
+                                                    </a>
+                                                </li>
+                                                <li class="item-settings__item">
+                                                    <a class="item-settings__link" href="#">
+                                                        <img src="./img/Copy.svg" alt="" class="item-settings__icon" />
+                                                        <div class="item-settings__text">Дублировать</div>
+                                                    </a>
+                                                </li>
+                                                <li class="item-settings__item">
+                                                    <a class="item-settings__link" href="#">
+                                                        <img src="./img/Trash.svg" alt="" class="item-settings__icon" />
+                                                        <div class="item-settings__text">Удалить</div>
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -131,20 +179,31 @@
                                     <div class="item-task__content">
                                         <div class="item-task__name">Оформить курсовую работу</div>
                                         <div class="item-task__description">
-                                            Курсовая работа по Ионов А.Г. на тему «Бережливое
-                                            производство»
+                                            Курсовая работа по Ионов А.Г. на тему «Бережливое производство»
                                         </div>
                                         <div class="item-task__tags tag">
-                                            <div class="tag__time">
+                                            <button class="tag__time">
                                                 <div class="tag__img">
                                                     <img src="./img/CalendarPlus.svg" alt="" />
                                                 </div>
                                                 <div class="tag__date">15.02</div>
-                                            </div>
+                                            </button>
                                             <ul class="tag__category">
                                                 <li class="tag__item">#Учёба</li>
                                                 <li class="tag__item">#Курсовая</li>
                                             </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item-task__priority item-task__priority_yellow">
+                                        <img src="./img/FlagBanner.svg" alt="" />
+                                    </div>
+                                    <div class="item-task__btn-setting-block">
+                                        <div class="item-task__btn-settings-content">
+                                            <button class="item-task__btn-settings">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </button>
                                         </div>
                                     </div>
                                 </li>
@@ -154,20 +213,201 @@
                                     <div class="item-task__content">
                                         <div class="item-task__name">Оформить курсовую работу</div>
                                         <div class="item-task__description">
-                                            Курсовая работа по Ионов А.Г. на тему «Бережливое
-                                            производство»
+                                            Курсовая работа по Ионов А.Г. на тему «Бережливое производство»
                                         </div>
                                         <div class="item-task__tags tag">
-                                            <div class="tag__time">
+                                            <button class="tag__time">
                                                 <div class="tag__img">
                                                     <img src="./img/CalendarPlus.svg" alt="" />
                                                 </div>
                                                 <div class="tag__date">15.02</div>
-                                            </div>
+                                            </button>
                                             <ul class="tag__category">
                                                 <li class="tag__item">#Учёба</li>
                                                 <li class="tag__item">#Курсовая</li>
                                             </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item-task__priority item-task__priority_green">
+                                        <img src="./img/FlagBanner.svg" alt="" />
+                                    </div>
+                                    <div class="item-task__btn-setting-block">
+                                        <div class="item-task__btn-settings-content">
+                                            <button class="item-task__btn-settings">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="tasks__item item-task">
+                                    <div class="item-task__checkbox"></div>
+                                    <div class="item-task__content">
+                                        <div class="item-task__name">Оформить курсовую работу</div>
+                                        <div class="item-task__description">
+                                            Курсовая работа по Ионов А.Г. на тему «Бережливое производство»
+                                        </div>
+                                        <div class="item-task__tags tag">
+                                            <button class="tag__time">
+                                                <div class="tag__img">
+                                                    <img src="./img/CalendarPlus.svg" alt="" />
+                                                </div>
+                                                <div class="tag__date">15.02</div>
+                                            </button>
+                                            <ul class="tag__category">
+                                                <li class="tag__item">#Учёба</li>
+                                                <li class="tag__item">#Курсовая</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item-task__priority item-task__priority_yellow">
+                                        <img src="./img/FlagBanner.svg" alt="" />
+                                    </div>
+                                    <div class="item-task__btn-setting-block">
+                                        <div class="item-task__btn-settings-content">
+                                            <button class="item-task__btn-settings">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="tasks__item item-task">
+                                    <div class="item-task__checkbox"></div>
+                                    <div class="item-task__content">
+                                        <div class="item-task__name">Оформить курсовую работу</div>
+                                        <div class="item-task__description">
+                                            Курсовая работа по Ионов А.Г. на тему «Бережливое производство»
+                                        </div>
+                                        <div class="item-task__tags tag">
+                                            <button class="tag__time">
+                                                <div class="tag__img">
+                                                    <img src="./img/CalendarPlus.svg" alt="" />
+                                                </div>
+                                                <div class="tag__date">15.02</div>
+                                            </button>
+                                            <ul class="tag__category">
+                                                <li class="tag__item">#Учёба</li>
+                                                <li class="tag__item">#Курсовая</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item-task__priority item-task__priority_green">
+                                        <img src="./img/FlagBanner.svg" alt="" />
+                                    </div>
+                                    <div class="item-task__btn-setting-block">
+                                        <div class="item-task__btn-settings-content">
+                                            <button class="item-task__btn-settings">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="tasks__item item-task">
+                                    <div class="item-task__checkbox"></div>
+                                    <div class="item-task__content">
+                                        <div class="item-task__name">Оформить курсовую работу</div>
+                                        <div class="item-task__description">
+                                            Курсовая работа по Ионов А.Г. на тему «Бережливое производство»
+                                        </div>
+                                        <div class="item-task__tags tag">
+                                            <button class="tag__time">
+                                                <div class="tag__img">
+                                                    <img src="./img/CalendarPlus.svg" alt="" />
+                                                </div>
+                                                <div class="tag__date">15.02</div>
+                                            </button>
+                                            <ul class="tag__category">
+                                                <li class="tag__item">#Учёба</li>
+                                                <li class="tag__item">#Курсовая</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item-task__priority item-task__priority_green">
+                                        <img src="./img/FlagBanner.svg" alt="" />
+                                    </div>
+                                    <div class="item-task__btn-setting-block">
+                                        <div class="item-task__btn-settings-content">
+                                            <button class="item-task__btn-settings">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="tasks__item item-task">
+                                    <div class="item-task__checkbox"></div>
+                                    <div class="item-task__content">
+                                        <div class="item-task__name">Оформить курсовую работу</div>
+                                        <div class="item-task__description">
+                                            Курсовая работа по Ионов А.Г. на тему «Бережливое производство»
+                                        </div>
+                                        <div class="item-task__tags tag">
+                                            <button class="tag__time">
+                                                <div class="tag__img">
+                                                    <img src="./img/CalendarPlus.svg" alt="" />
+                                                </div>
+                                                <div class="tag__date">15.02</div>
+                                            </button>
+                                            <ul class="tag__category">
+                                                <li class="tag__item">#Учёба</li>
+                                                <li class="tag__item">#Курсовая</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item-task__priority item-task__priority_yellow">
+                                        <img src="./img/FlagBanner.svg" alt="" />
+                                    </div>
+                                    <div class="item-task__btn-setting-block">
+                                        <div class="item-task__btn-settings-content">
+                                            <button class="item-task__btn-settings">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="tasks__item item-task">
+                                    <div class="item-task__checkbox"></div>
+                                    <div class="item-task__content">
+                                        <div class="item-task__name">Оформить курсовую работу</div>
+                                        <div class="item-task__description">
+                                            Курсовая работа по Ионов А.Г. на тему «Бережливое производство»
+                                        </div>
+                                        <div class="item-task__tags tag">
+                                            <button class="tag__time">
+                                                <div class="tag__img">
+                                                    <img src="./img/CalendarPlus.svg" alt="" />
+                                                </div>
+                                                <div class="tag__date">15.02</div>
+                                            </button>
+                                            <ul class="tag__category">
+                                                <li class="tag__item">#Учёба</li>
+                                                <li class="tag__item">#Курсовая</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="item-task__priority item-task__priority_green">
+                                        <img src="./img/FlagBanner.svg" alt="" />
+                                    </div>
+                                    <div class="item-task__btn-setting-block">
+                                        <div class="item-task__btn-settings-content">
+                                            <button class="item-task__btn-settings">
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </button>
                                         </div>
                                     </div>
                                 </li>
@@ -195,6 +435,7 @@
                 </div>
             </footer>
         </div>
+
         <script src="./js/script.js"></script>
     </body>
 </html>
