@@ -12,41 +12,14 @@ addFormCloseBtn.addEventListener("click", function () {
     hideAddForm.style.display = "none";
 });
 
-// const openSettingsBtn = document.querySelector("#header-open-settings");
-// const popUpSettings = document.querySelector("#pop-up-settings");
+const switchMode = document.querySelector(".header__gretting-text__blue");
 
-// openSettingsBtn.addEventListener("click", function () {
-//     popUpSettings.classList.add("active");
-// });
+switchMode.addEventListener("click", function () {
+    let theme = document.querySelector("#theme");
 
-// window.addEventListener("click", function (e) {
-//     if (e.target.classList.contains("popup__overlay")) {
-//         popUpSettings.classList.remove("active");
-//     }
-// });
-
-// document.querySelector(".item-task__btn-settings-content").addEventListener("click", function () {
-//     const markup = `
-//     <ul class="item-settings">
-//         <li class="item-settings__item">
-//             <a class="item-settings__link" href="#">
-//                 <img src="./img/PencilLine.svg" alt="" class="item-settings__icon" />
-//                 <div class="item-settings__text">Редактировать</div>
-//             </a>
-//         </li>
-//         <li class="item-settings__item">
-//             <a class="item-settings__link" href="#">
-//                 <img src="./img/Copy.svg" alt="" class="item-settings__icon" />
-//                 <div class="item-settings__text">Дублировать</div>
-//             </a>
-//         </li>
-//         <li class="item-settings__item">
-//             <a class="item-settings__link" href="#">
-//                 <img src="./img/Trash.svg" alt="" class="item-settings__icon" />
-//                 <div class="item-settings__text">Удалить</div>
-//             </a>
-//         </li>
-//     </ul>
-//     `;
-//     this.insertAdjacentHTML("beforeend", markup);
-// });
+    if (theme.getAttribute("href") == "./css/light-mode.css") {
+        theme.href = "./css/dark-mode.css";
+    } else {
+        theme.href = "./css/light-mode.css";
+    }
+});
