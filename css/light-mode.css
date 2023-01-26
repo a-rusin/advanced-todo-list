@@ -85,12 +85,17 @@ body {
     margin-left: 10px;
     width: 30px;
     height: 30px;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
 }
 
-.header__greeting:hover .header__gear {
-    opacity: 1;
+@media (hover) {
+    .header__gear {
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .header__greeting:hover .header__gear {
+        opacity: 1;
+    }
 }
 
 .header__info {
@@ -1061,5 +1066,380 @@ body {
     .footer__author {
         font-size: 14px;
         line-height: 17px;
+    }
+}
+
+/* Pop up general */
+
+.pop-up {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+    opacity: 0;
+    overflow: hidden;
+    display: none;
+    transition: 1s;
+}
+.pop-up.active {
+    opacity: 1;
+    display: block;
+    overflow: scroll;
+}
+.pop-up__container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 10px 10px;
+}
+.pop-up__body {
+    margin: auto;
+    width: 804px;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 50px 103px;
+    position: relative;
+}
+
+/* Pop up settings */
+
+.settings {
+}
+.settings__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.settings__title-pd {
+}
+.title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    color: #222078;
+}
+.settings__close {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #6c6c6c;
+}
+
+.settings__close::after {
+    content: "";
+    width: 24px;
+    height: 24px;
+    margin-left: 5px;
+    background: url("./../img/closePopUp.svg") 0 0px / contain no-repeat;
+}
+.settings__inputs {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+.settings__item {
+    flex: 0 1 50%;
+}
+.settings__item:not(:last-child) {
+    padding-right: 30px;
+}
+.settings__label-name {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #8b8da1;
+    padding-bottom: 10px;
+}
+.settings__input {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    color: #303030;
+    padding: 10px 15px;
+    border: 1px solid #8b8da1;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.settings__theme {
+    margin-bottom: 50px;
+}
+.settings__title-theme {
+    padding-bottom: 30px;
+}
+.settings__items-theme {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.item-theme {
+    flex: 0 1 50%;
+}
+
+.item-theme {
+    padding-right: 30px;
+}
+
+.item-theme__label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+/* .item-theme__icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #222078;
+} */
+
+/* Custom radio button and checkbox ==================================================================================================== */
+
+.item-theme__radio-custom,
+.settings__checkbox-custom {
+    opacity: 0;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.item-theme__radio-custom-label:before,
+.settings__checkbox-custom-label:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.item-theme__radio-custom + .item-theme__radio-custom-label:before {
+    background: #fff;
+    border: 1px solid #222078;
+    border-radius: 50%;
+}
+
+.settings__checkbox-custom + .settings__checkbox-custom-label:before {
+    background: #ffffff;
+    border: 1px solid #c9c9c9;
+    border-radius: 3px;
+}
+
+.item-theme__radio-custom:checked + .item-theme__radio-custom-label:before {
+    background: #222078;
+    box-shadow: inset 0px 0px 0px 4px #fff;
+}
+
+.settings__checkbox-custom:checked + .settings__checkbox-custom-label:before {
+    color: #fff;
+    text-align: center;
+    background: #222078;
+    border: 1px solid #222078;
+    box-shadow: inset 0px 0px 0px 2px #fff;
+}
+
+@media (max-width: 530px) {
+    .settings__checkbox-custom-label {
+        font-size: 14px;
+        line-height: 15px;
+    }
+}
+
+/* Custom radio button and checkbox end ==================================================================================================== */
+
+.item-theme__info {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #8b8da1;
+}
+
+.item-theme__block {
+    display: flex;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.item-theme__block_light {
+    border: 1px solid #8b8da1;
+}
+.item-theme__block_dark {
+    border: 1px solid #6c6c6c;
+    background: #1a1a1a;
+}
+
+.item-theme__chekbox {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+.item-theme__chekbox_light {
+    border: 1px solid #c9c9c9;
+}
+.item-theme__chekbox_dark {
+    background: #ffffff;
+    border: 1px solid #c9c9c9;
+}
+.item-theme__title-task {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 10px;
+}
+.item-theme__title-task_light {
+    color: #303030;
+}
+.item-theme__title-task_dark {
+    color: #f4f4f4;
+}
+.item-theme__description {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+}
+.item-theme__description_light {
+    color: #c9c9c9;
+}
+
+.item-theme__description_dark {
+    color: #c9c9c9;
+}
+
+.settings__clear-block {
+}
+.settings__clear-title {
+    padding-bottom: 30px;
+}
+.settings__clear-description {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 15px;
+    color: #8b8da1;
+}
+.settings__clear-checkbox-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+}
+.settings__clear-checkbox-item {
+    display: flex;
+    align-items: center;
+}
+.settings__checkbox-item-clear {
+    background: #ffffff;
+    border: 1px solid #c9c9c9;
+    border-radius: 3px;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.settings__checkbox-label-item {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #8b8da1;
+}
+
+.settings__btn {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #f4f4f4;
+    padding: 15px 30px;
+    background: #222078;
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+    .pop-up__body {
+        padding: 50px 40px;
+    }
+}
+@media (max-width: 530px) {
+    .pop-up__body {
+        padding: 40px;
+    }
+    .settings__theme {
+        margin-bottom: 30px;
+    }
+    .settings__label-name {
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .settings__inputs {
+        margin-bottom: 30px;
+    }
+    .settings__input {
+        font-size: 16px;
+        line-height: 19px;
+    }
+    .item-theme__block {
+        padding: 10px;
+    }
+    .item-theme__chekbox {
+        /* margin-right: 4px; */
+    }
+    .item-theme__info {
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .item-theme__title-task {
+        font-size: 15px;
+        line-height: 18px;
+        margin-bottom: 6px;
+    }
+    .item-theme__description {
+        font-size: 14px;
+        line-height: 17px;
+    }
+    .settings__clear-title {
+        padding-bottom: 20px;
+    }
+    .settings__clear-description {
+        font-size: 14px;
+        line-height: 17px;
+        margin-bottom: 20px;
+    }
+    .settings__checkbox-label-item {
+        font-size: 16px;
+        line-height: 19px;
+    }
+    .settings__clear-checkbox-item {
+        flex: 0 1 45%;
+    }
+}
+
+@media (max-width: 425px) {
+    .pop-up__body {
+        padding: 30px 20px;
+    }
+    .settings__inputs {
+        flex-direction: column;
+    }
+    .settings__item:not(:last-child) {
+        padding-right: 0px;
+        padding-bottom: 20px;
+    }
+    .settings__items-theme {
+        flex-direction: column;
+    }
+    .item-theme {
+        padding-right: 0px;
+    }
+    .item-theme:not(:last-child) {
+        padding-bottom: 20px;
+    }
+    .item-theme__block {
+        padding: 20px;
     }
 }

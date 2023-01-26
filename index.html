@@ -243,6 +243,110 @@
             </footer>
         </div>
 
+        <div class="pop-up">
+            <div class="pop-up__container">
+                <div class="pop-up__body">
+                    <div class="settings">
+                        <div class="settings__top">
+                            <div class="settings__title-pd title">Личные данные</div>
+                            <button class="settings__close" id="close-pop-up-settings">Закрыть</button>
+                        </div>
+
+                        <div class="settings__inputs">
+                            <div class="settings__item">
+                                <div class="settings__label-name">Имя</div>
+                                <input type="text" class="settings__input" placeholder="Введите имя" />
+                            </div>
+                            <div class="settings__item">
+                                <div class="settings__label-name">Местоположение</div>
+                                <input type="text" class="settings__input" placeholder="Введите город" />
+                            </div>
+                        </div>
+
+                        <div class="settings__theme">
+                            <div class="settings__title-theme title">Изменить тему</div>
+                            <div class="settings__items-theme">
+                                <div class="item-theme">
+                                    <div class="item-theme__label">
+                                        <input
+                                            id="radio-1"
+                                            class="item-theme__radio-custom"
+                                            name="radio-group"
+                                            type="radio"
+                                            checked
+                                        />
+                                        <label for="radio-1" class="item-theme__radio-custom-label">Светлая</label>
+                                    </div>
+
+                                    <div class="item-theme__block item-theme__block_light">
+                                        <div class="item-theme__chekbox item-theme__chekbox_light"></div>
+                                        <div class="item-them__text-info">
+                                            <div class="item-theme__title-task item-theme__title-task_light">Название задачи</div>
+                                            <div class="item-theme__description item-theme__description_light">Описание</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="item-theme">
+                                    <div class="item-theme__label">
+                                        <input id="radio-1" class="item-theme__radio-custom" name="radio-group" type="radio" />
+                                        <label for="radio-1" class="item-theme__radio-custom-label">Темная</label>
+                                    </div>
+
+                                    <div class="item-theme__block item-theme__block_dark">
+                                        <div class="item-theme__chekbox item-theme__chekbox_dark"></div>
+                                        <div class="item-them__text-info">
+                                            <div class="item-theme__title-task item-theme__title-task_dark">Название задачи</div>
+                                            <div class="item-theme__description item-theme__description_dark">Описание</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings__clear-block">
+                            <div class="settings__clear-title title">Очистить задачи</div>
+                            <div class="settings__clear-description">Выберите задачи, которые вы хотите удалить</div>
+                            <div class="settings__clear-checkbox-items">
+                                <div class="settings__clear-checkbox-item">
+                                    <!-- <div class="settings__checkbox-item-clear"></div>
+                                    <div class="settings__checkbox-label-item">Все</div> -->
+                                    <input
+                                        id="checkbox-1"
+                                        class="settings__checkbox-custom"
+                                        name="checkbox-1"
+                                        type="checkbox"
+                                        checked
+                                    />
+                                    <label for="checkbox-1" class="settings__checkbox-custom-label">Все</label>
+                                </div>
+                                <div class="settings__clear-checkbox-item">
+                                    <!-- <div class="settings__checkbox-item-clear"></div>
+                                    <div class="settings__checkbox-label-item">Активные</div> -->
+                                    <input id="checkbox-2" class="settings__checkbox-custom" name="checkbox-2" type="checkbox" />
+                                    <label for="checkbox-2" class="settings__checkbox-custom-label">Активные</label>
+                                </div>
+                                <div class="settings__clear-checkbox-item">
+                                    <!-- <div class="settings__checkbox-item-clear"></div>
+                                    <div class="settings__checkbox-label-item">Выполненные</div> -->
+                                    <input id="checkbox-3" class="settings__checkbox-custom" name="checkbox-3" type="checkbox" />
+                                    <label for="checkbox-3" class="settings__checkbox-custom-label">Выполненные</label>
+                                </div>
+                                <div class="settings__clear-checkbox-item">
+                                    <!-- <div class="settings__checkbox-item-clear"></div>
+                                    <div class="settings__checkbox-label-item">Удаленные</div> -->
+                                    <input id="checkbox-4" class="settings__checkbox-custom" name="checkbox-4" type="checkbox" />
+                                    <label for="checkbox-4" class="settings__checkbox-custom-label">Удаленные</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="settings__btn">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="./js/script.js"></script>
     </body>
 </html>

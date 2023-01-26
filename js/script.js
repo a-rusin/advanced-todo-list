@@ -23,3 +23,18 @@ switchMode.addEventListener("click", function () {
         theme.href = "./css/light-mode.css";
     }
 });
+
+const gearBtn = document.querySelector(".header__gear");
+const popUp = document.querySelector(".pop-up");
+
+gearBtn.addEventListener("click", function () {
+    popUp.classList.add("active");
+    document.body.style.overflow = "hidden";
+});
+
+const closePopUpSettingsBtn = document.querySelector("#close-pop-up-settings");
+
+closePopUpSettingsBtn.addEventListener("click", function () {
+    popUp.classList.remove("active");
+    document.body.style.overflow = "visible";
+});
