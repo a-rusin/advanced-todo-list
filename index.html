@@ -7,7 +7,7 @@
         <title>ToDo List</title>
         <link rel="stylesheet" href="./css/reset.css" />
         <link rel="stylesheet" href="./css/font.css" />
-        <link rel="stylesheet" href="./css/dark-mode.css" id="theme" />
+        <link rel="stylesheet" href="./css/light-mode.css" id="theme" />
     </head>
     <body>
         <div class="wrapper">
@@ -22,10 +22,10 @@
                                     </div>
                                     <div class="header__gretting-text">
                                         Привет, <br />
-                                        <span class="header__gretting-text__blue">Александр!</span>
+                                        <span class="header__gretting-text__blue" data-user-name>Александр!</span>
                                     </div>
-                                    <div class="header__gear" id="header-open-settings">
-                                        <img src="./img/GearSix.svg" alt="" />
+                                    <div class="header__gear" id="header-open-settings" data-open-settings>
+                                        <img src="./img/GearSix.svg" alt="" data-open-settings />
                                     </div>
                                 </div>
                                 <div class="header__info">
@@ -36,7 +36,7 @@
                                     <div class="header-cell_line"></div>
                                     <div class="header-cell">
                                         <div class="header-cell__count">24°C</div>
-                                        <div class="header-cell__info">Россия, Томск</div>
+                                        <div class="header-cell__info" data-user-location>Россия, Томск</div>
                                     </div>
                                 </div>
                             </div>
@@ -59,14 +59,14 @@
                 <main ="page">
                     <div class="container">
                         <div class="page__add-container add-container">
-                            <div class="add-container__hidden-state" id="add-task-form-hidden-state">
+                            <div class="add-container__hidden-state" id="add-task-form-hidden-state" data-add-form="cutForm">
                                 <div class="add-container__icon">
-                                    <img src="./img/Plus.svg" alt="" />
+                                    <img data-add-form="cutForm" src="./img/Plus.svg" alt="" />
                                 </div>
-                                <div class="add-container__text">Введите название</div>
+                                <div class="add-container__text" data-add-form="cutForm">Введите название</div>
                             </div>
 
-                            <div class="add-container__open-state" id="add-task-form-open-state">
+                            <div class="add-container__open-state" id="add-task-form-open-state" data-add-form="fullForm">
                                 <input type="text" class="add-container__title" placeholder="Введите название…" />
                                 <input type="text" class="add-container__description" placeholder="Описание" />
                                 <input type="text" class="add-container__tags" placeholder="Укажите теги" />
@@ -76,8 +76,15 @@
                                         <button class="add-container__priorety">Приоретет</button>
                                     </div>
                                     <div class="add-container_btn-right">
-                                        <button class="btn btn_outline" id="add-form-close-btn">Отменить</button>
-                                        <button class="btn btn_solid">Добавить</button>
+                                        <button
+                                            class="btn btn_outline"
+                                            id="add-form-close-btn"
+                                            id="close-full-form-btn"
+                                            data-hide-full-form
+                                        >
+                                            Отменить
+                                        </button>
+                                        <button class="btn btn_solid" data-post-task>Добавить</button>
                                     </div>
                                 </div>
                             </div>
@@ -118,56 +125,7 @@
                         </div>
 
                         <div class="page__tasks tasks">
-                            <ul class="tasks__list">
-                                <li class="tasks__item item-task">
-                                    <div class="item-task__checkbox"></div>
-                                    <div class="item-task__content">
-                                        <div class="item-task__name">Оформить курсовую работу</div>
-                                        <div class="item-task__description">
-                                            Курсовая работа по Ионов А.Г. на тему «Бережливое производство»
-                                        </div>
-                                        <div class="item-task__tags tag">
-                                            <button class="tag__time">15.02</button>
-                                            <ul class="tag__category">
-                                                <li class="tag__item">#Учёба</li>
-                                                <li class="tag__item">#Курсовая</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="item-task__priority item-task__priority_red">
-                                        <img src="./img/FlagBanner.svg" alt="" />
-                                    </div>
-                                    <div class="item-task__btn-setting-block">
-                                        <div class="item-task__btn-settings-content">
-                                            <button class="item-task__btn-settings">
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            </button>
-                                            <!-- <ul class="item-settings">
-                                                <li class="item-settings__item">
-                                                    <a class="item-settings__link" href="#">
-                                                        <img src="./img/PencilLine.svg" alt="" class="item-settings__icon" />
-                                                        <div class="item-settings__text">Редактировать</div>
-                                                    </a>
-                                                </li>
-                                                <li class="item-settings__item">
-                                                    <a class="item-settings__link" href="#">
-                                                        <img src="./img/Copy.svg" alt="" class="item-settings__icon" />
-                                                        <div class="item-settings__text">Дублировать</div>
-                                                    </a>
-                                                </li>
-                                                <li class="item-settings__item">
-                                                    <a class="item-settings__link" href="#">
-                                                        <img src="./img/Trash.svg" alt="" class="item-settings__icon" />
-                                                        <div class="item-settings__text">Удалить</div>
-                                                    </a>
-                                                </li>
-                                            </ul> -->
-                                        </div>
-                                    </div>
-                                </li>
-
+                            <ul class="tasks__list" data-tasks>
                                 <li class="tasks__item item-task">
                                     <div class="item-task__checkbox"></div>
                                     <div class="item-task__content">
@@ -243,13 +201,13 @@
             </footer>
         </div>
 
-        <div class="pop-up">
+        <div class="pop-up" data-pop-up-settings>
             <div class="pop-up__container">
                 <div class="pop-up__body">
                     <div class="settings">
                         <div class="settings__top">
                             <div class="settings__title-pd title">Личные данные</div>
-                            <button class="settings__close" id="close-pop-up-settings">Закрыть</button>
+                            <button class="settings__close" id="close-pop-up-settings" data-close-settings>Закрыть</button>
                         </div>
 
                         <div class="settings__inputs">
@@ -347,6 +305,6 @@
             </div>
         </div>
 
-        <script src="./js/script.js"></script>
+        <script type="module" src="./js/controller.js"></script>
     </body>
 </html>
