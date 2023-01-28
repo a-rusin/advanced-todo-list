@@ -32,6 +32,6 @@ document.addEventListener("click", function (e) {
         console.log("test");
         console.log(View.getInputsDataSettings());
         Model.changeSettings(View.getInputsDataSettings());
-        window.location.href = "/";
+        window.location.href = "./../index.html";
     }
 });
