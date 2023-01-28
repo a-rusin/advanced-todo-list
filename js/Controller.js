@@ -33,7 +33,7 @@ document.addEventListener("click", function (e) {
         console.log(View.getInputsDataSettings());
         Model.changeSettings(View.getInputsDataSettings());
 
-        // only for testing on github
+        // only for testing on github pages
         if (window.location.href === "https://a-rusin.github.io/advanced-todo-list/") {
             window.location.href = "https://a-rusin.github.io/advanced-todo-list/";
         } else {
