@@ -4,20 +4,30 @@ const View = (function () {
     const header = {
         userName: document.querySelector("[data-user-name]"),
         userLocation: document.querySelector("[data-user-location]"),
+        cssTheme: document.querySelector("#theme"),
     };
 
     const checkUserName = (user) => {
         header.userName.textContent = user;
     };
 
+    const checkUserTheme = (theme) => {
+        header.cssTheme.href = `./css/${theme}-mode.css`;
+    };
+
     const checkUserLocation = (user) => {
         header.userLocation.textContent = user;
     };
+
+    // POP UP ================================================================================ //
 
     // pop up settings
     const popUpSettings = {
         window: document.querySelector("[data-pop-up-settings]"),
         closeBtn: document.querySelector("[data-close-settings]"),
+        inputName: document.querySelector(".settings__input"),
+        inputLightTheme: document.querySelector("#radio-1-light-theme"),
+        inputDarkTheme: document.querySelector("#radio-1-dark-theme"),
     };
 
     const showPopUpSettings = () => {
@@ -26,6 +36,13 @@ const View = (function () {
 
     const hidePopUpSettings = () => {
         popUpSettings.window.classList.remove("active");
+    };
+
+    const getInputsDataSettings = () => {
+        return {
+            userName: popUpSettings.inputName.value,
+            theme: popUpSettings.inputLightTheme.checked ? "light" : "dark",
+        };
     };
 
     // ADD TASK ======================================================================== //
@@ -111,6 +128,8 @@ const View = (function () {
         addTask: addTask,
         getInputsDataTask: getInputsDataTask,
         clearInputsDataTask: clearInputsDataTask,
+        getInputsDataSettings: getInputsDataSettings,
+        checkUserTheme: checkUserTheme,
     };
 })();
 

@@ -2,7 +2,7 @@ import View from "./View.js";
 import Model from "./Model.js";
 
 View.checkUserName(Model.userSettings.userName);
-View.checkUserLocation(Model.userSettings.location);
+View.checkUserTheme(Model.userSettings.theme);
 
 document.addEventListener("click", function (e) {
     if (e.target.getAttribute("data-add-form") === "cutForm") {
@@ -25,5 +25,13 @@ document.addEventListener("click", function (e) {
         console.log("post!");
         View.addTask(View.getInputsDataTask());
         View.clearInputsDataTask();
+    }
+
+    if (e.target.hasAttribute("data-save-settings")) {
+        e.preventDefault();
+        console.log("test");
+        console.log(View.getInputsDataSettings());
+        Model.changeSettings(View.getInputsDataSettings());
+        window.location.href = "/";
     }
 });
