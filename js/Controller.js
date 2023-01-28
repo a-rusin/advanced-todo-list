@@ -32,6 +32,6 @@ document.addEventListener("click", function (e) {
         console.log("test");
         console.log(View.getInputsDataSettings());
         Model.changeSettings(View.getInputsDataSettings());
-        window.location.href = "./../index.html";
+        window.location.href = "https://a-rusin.github.io/advanced-todo-list/"; // github - 'https://a-rusin.github.io/advanced-todo-list/' ------------------- pc - '/'
     }
 });
