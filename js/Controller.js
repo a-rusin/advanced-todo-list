@@ -1,5 +1,5 @@
 import View from "./view.js";
-import Model from "./Model.js";
+import Model from "./model.js";
 
 View.checkUserName(Model.userSettings.userName);
 View.checkUserLocation(Model.userSettings.location);
