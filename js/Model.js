@@ -20,7 +20,7 @@ const Model = (function () {
         ],
 
         settings: {
-            userName: "Антон",
+            userName: "Александр",
             location: "Россия, Томск",
             theme: "light",
         },

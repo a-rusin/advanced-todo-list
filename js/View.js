@@ -59,7 +59,6 @@ const View = (function () {
             taskName: taskElemenents.inputTitle.value,
             taskDescription: taskElemenents.inputDescription.value,
             taskTags: taskElemenents.inputTags.value,
-            test: null,
         };
     };
 
