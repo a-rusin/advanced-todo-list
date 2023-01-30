@@ -51,11 +51,29 @@ const Model = (function () {
         localStorage.setItem("taskState", JSON.stringify(state));
     };
 
+    const generateNewId = () => {
+        return +state.tasks[state.tasks.length - 1].id + 1;
+    };
+
+    const changeTaskStatus = (id, bool) => {
+        if (bool) {
+            const task = state.tasks.find((task) => task.id === id);
+            task.status = "done";
+            localStorage.setItem("taskState", JSON.stringify(state));
+        } else {
+            const task = state.tasks.find((task) => task.id === id);
+            task.status = "in progress";
+            localStorage.setItem("taskState", JSON.stringify(state));
+        }
+    };
+
     return {
         userSettings: state.settings,
         changeSettings: changeSettings,
         getTasksFromLocalStorage: getTasksFromLocalStorage,
         addNewTaskToLocalStorage: addNewTaskToLocalStorage,
+        generateNewId: generateNewId,
+        changeTaskStatus: changeTaskStatus,
     };
 })();
 

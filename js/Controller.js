@@ -24,8 +24,8 @@ document.addEventListener("click", function (e) {
     }
 
     if (e.target.hasAttribute("data-post-task")) {
-        const isAdd = View.addTask(View.getInputsDataTask());
-        Model.addNewTaskToLocalStorage(View.getInputsDataTask());
+        const isAdd = View.addTask(View.getInputsDataTask(), Model.generateNewId());
+        Model.addNewTaskToLocalStorage(View.getInputsDataTask(Model.generateNewId()));
         if (isAdd) {
             View.clearInputsDataTask();
         }
@@ -55,5 +55,15 @@ document.addEventListener("click", function (e) {
         View.removeActiveClassPrioretyItems();
         e.target.classList.add("active");
         View.hidePrioretyList(e.target.classList[1]);
+    }
+
+    if (e.target.hasAttribute("data-chekbox-task-item")) {
+        if (e.target.checked) {
+            View.changeTaskStatus(e.target.closest(".item-task"), true);
+            Model.changeTaskStatus(+e.target.closest(".item-task").getAttribute("data-task-id"), true);
+        } else {
+            View.changeTaskStatus(e.target.closest(".item-task"), false);
+            Model.changeTaskStatus(+e.target.closest(".item-task").getAttribute("data-task-id"), false);
+        }
     }
 });

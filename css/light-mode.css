@@ -812,6 +812,25 @@ body {
     margin-bottom: 20px;
     position: relative;
 }
+.item-task.active {
+    opacity: 0.4;
+}
+
+.item-task.active .item-task__name {
+    text-decoration: line-through;
+}
+
+.item-task.active .item-task__description {
+    text-decoration: line-through;
+}
+
+.item-task.active .tag__time {
+    text-decoration: line-through;
+}
+
+.item-task.active .tag__item {
+    text-decoration: line-through;
+}
 
 .item-task:last-child {
     margin-bottom: 60px;
@@ -827,10 +846,38 @@ body {
 .item-task__checkbox {
     min-width: 20px;
     height: 20px;
+    margin-right: 16px;
+}
+
+/* Custom radio button and checkbox ==================================================================================================== */
+
+.item-task__checkbox-input {
+    opacity: 0;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.item-task__checkbox-input-label:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+}
+
+.item-task__checkbox-input + .item-task__checkbox-input-label:before {
     background: #ffffff;
     border: 1px solid #c9c9c9;
     border-radius: 3px;
-    margin-right: 16px;
+}
+
+.item-task__checkbox-input:checked + .item-task__checkbox-input-label:before {
+    color: #fff;
+    text-align: center;
+    background: #222078;
+    border: 1px solid #222078;
+    box-shadow: inset 0px 0px 0px 2px #fff;
 }
 
 .item-task__name {
@@ -1006,6 +1053,8 @@ body {
 }
 .item-settings__text {
 }
+
+/* Custom radio button and checkbox end ==================================================================================================== */
 
 @media (max-width: 530px) {
     .item-task__checkbox {

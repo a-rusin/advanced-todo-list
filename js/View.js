@@ -123,7 +123,7 @@ const View = (function () {
         inputTags: document.querySelector(".add-container__tags"),
     };
 
-    const getInputsDataTask = () => {
+    const getInputsDataTask = (id) => {
         let priorety = Array.from(addTaskForm.selectPrioretyItems).find((item) => item.classList.contains("active"));
         if (priorety) {
             priorety = priorety.getAttribute("data-priorety-select-priorety");
@@ -132,10 +132,12 @@ const View = (function () {
         }
         const tags = taskElemenents.inputTags.value.length === 0 ? [] : taskElemenents.inputTags.value.split(",");
         return {
+            id: id,
             name: taskElemenents.inputTitle.value,
             description: taskElemenents.inputDescription.value,
             tags: tags,
             priorety: priorety,
+            status: "in progress",
         };
     };
 
@@ -157,6 +159,24 @@ const View = (function () {
         return priortyClass;
     };
 
+    const defineTaskClass = (priorety) => {
+        let taskClass = "tasks__item item-task";
+        let isCheked;
+        switch (priorety) {
+            case "done":
+                taskClass += " active";
+                isCheked = true;
+                break;
+            case "in progress":
+                taskClass += " ";
+                isCheked = false;
+                break;
+            default:
+                break;
+        }
+        return [taskClass, isCheked];
+    };
+
     const clearInputsDataTask = () => {
         taskElemenents.inputTitle.value = "";
         taskElemenents.inputDescription.value = "";
@@ -168,7 +188,7 @@ const View = (function () {
         addTaskForm.selectPrioretyBtn.texContent = "Приоритет";
     };
 
-    const addTask = (data) => {
+    const addTask = (data, newId) => {
         if (data.name.length === 0 || data.description.length === 0 || data.tags.length === 0 || data.priorety.length === 0) {
             alert("Заполните все поля!");
             return false;
@@ -180,8 +200,17 @@ const View = (function () {
             .join("");
         const priortyClass = definePriortyClass(data.priorety);
         const popUp = `
-        <li class="tasks__item item-task">
-            <div class="item-task__checkbox"></div>
+        <li class="tasks__item item-task" data-task-id = '${newId}'>
+            <div class="item-task__checkbox">
+                <input
+                    id="checkbox-5"
+                    class="item-task__checkbox-input"
+                    name="checkbox-5"
+                    type="checkbox"
+                    data-chekbox-task-item
+                />
+                <label for="checkbox-5" class="item-task__checkbox-input-label"></label>
+            </div>
             <div class="item-task__content">
                 <div class="item-task__name">${data.name}</div>
                 <div class="item-task__description">
@@ -220,9 +249,20 @@ const View = (function () {
                 })
                 .join("");
             const priortyClass = definePriortyClass(task.priorety);
+            const taskClass = defineTaskClass(task.status)[0];
             const popUp = `
-            <li class="tasks__item item-task">
-                <div class="item-task__checkbox"></div>
+            <li class="${taskClass}" data-task-id = '${task.id}'>
+                <div class="item-task__checkbox">
+                    <input
+                        id="checkbox-5"
+                        class="item-task__checkbox-input"
+                        name="checkbox-5"
+                        type="checkbox"
+                        data-chekbox-task-item
+                        ${defineTaskClass(task.status)[1] ? "checked" : null}
+                    />
+                    <label for="checkbox-5" class="item-task__checkbox-input-label"></label>
+                </div>
                 <div class="item-task__content">
                     <div class="item-task__name">${task.name}</div>
                     <div class="item-task__description">
@@ -253,6 +293,14 @@ const View = (function () {
         });
     };
 
+    const changeTaskStatus = (task, bool) => {
+        if (bool) {
+            task.classList.add("active");
+        } else {
+            task.classList.remove("active");
+        }
+    };
+
     return {
         showFullForm: showFullForm,
         showShortForm: showShortForm,
@@ -270,6 +318,7 @@ const View = (function () {
         removeActiveClassPrioretyItems: removeActiveClassPrioretyItems,
         hidePrioretyList: hidePrioretyList,
         setDefaultValueFromData: setDefaultValueFromData,
+        changeTaskStatus: changeTaskStatus,
     };
 })();
 
