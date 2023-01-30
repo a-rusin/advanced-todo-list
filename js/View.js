@@ -30,6 +30,22 @@ const View = (function () {
         inputDarkTheme: document.querySelector("#radio-1-dark-theme"),
     };
 
+    const setDefaultValueFromData = (data) => {
+        if (data.userName === "Пользователь") {
+            popUpSettings.inputName.value = "";
+        } else {
+            popUpSettings.inputName.value = data.userName;
+        }
+
+        if (data.theme === "light") {
+            popUpSettings.inputLightTheme.checked = true;
+            popUpSettings.inputDarkTheme.checked = false;
+        } else if (data.theme === "dark") {
+            popUpSettings.inputDarkTheme.checked = true;
+            popUpSettings.inputLightTheme.checked = false;
+        }
+    };
+
     const showPopUpSettings = () => {
         popUpSettings.window.classList.add("active");
     };
@@ -52,6 +68,42 @@ const View = (function () {
         cutForm: document.querySelector("#add-task-form-hidden-state"),
         fullForm: document.querySelector("#add-task-form-open-state"),
         fullFormCloseBtn: document.querySelector("#close-full-form-btn"),
+        selectPrioretyBtn: document.querySelector("[data-priorety-open-select]"),
+        selectPrioretyList: document.querySelector("[data-priorety-open-select-list]"),
+        selectPrioretyItems: document.querySelectorAll("[data-priorety-select-priorety]"),
+    };
+
+    const showPrioretyList = () => {
+        addTaskForm.selectPrioretyList.classList.toggle("active");
+    };
+
+    const hidePrioretyList = (classItem) => {
+        addTaskForm.selectPrioretyList.classList.remove("active");
+        switch (classItem) {
+            case "add-container__priorety-item_low":
+                addTaskForm.selectPrioretyBtn.style.background = "#41a77c";
+                addTaskForm.selectPrioretyBtn.style.color = "#fff";
+                addTaskForm.selectPrioretyBtn.textContent = "Низкий";
+                break;
+            case "add-container__priorety-item_medium":
+                addTaskForm.selectPrioretyBtn.style.background = "#be9e2c";
+                addTaskForm.selectPrioretyBtn.style.color = "#fff";
+                addTaskForm.selectPrioretyBtn.textContent = "Средний";
+                break;
+            case "add-container__priorety-item_high":
+                addTaskForm.selectPrioretyBtn.style.background = "#a65555";
+                addTaskForm.selectPrioretyBtn.style.color = "#fff";
+                addTaskForm.selectPrioretyBtn.textContent = "Высокий";
+                break;
+            default:
+                break;
+        }
+    };
+
+    const removeActiveClassPrioretyItems = () => {
+        addTaskForm.selectPrioretyItems.forEach((item) => {
+            item.classList.remove("active");
+        });
     };
 
     const showFullForm = () => {
@@ -72,50 +124,133 @@ const View = (function () {
     };
 
     const getInputsDataTask = () => {
+        let priorety = Array.from(addTaskForm.selectPrioretyItems).find((item) => item.classList.contains("active"));
+        if (priorety) {
+            priorety = priorety.getAttribute("data-priorety-select-priorety");
+        } else {
+            priorety = "";
+        }
+        const tags = taskElemenents.inputTags.value.length === 0 ? [] : taskElemenents.inputTags.value.split(",");
         return {
-            taskName: taskElemenents.inputTitle.value,
-            taskDescription: taskElemenents.inputDescription.value,
-            taskTags: taskElemenents.inputTags.value,
+            name: taskElemenents.inputTitle.value,
+            description: taskElemenents.inputDescription.value,
+            tags: tags,
+            priorety: priorety,
         };
     };
 
-    const addTask = (data) => {
-        const popUp = `
-        <li class="tasks__item item-task">
-        <div class="item-task__checkbox"></div>
-        <div class="item-task__content">
-            <div class="item-task__name">${data.taskName}</div>
-            <div class="item-task__description">
-            ${data.taskDescription}
-            </div>
-            <div class="item-task__tags tag">
-                <button class="tag__time">15.02</button>
-                <ul class="tag__category">
-                    <li class="tag__item">#${data.taskTags}</li>
-                </ul>
-            </div>
-        </div>
-        <div class="item-task__priority item-task__priority_red">
-            <img src="./img/FlagBanner.svg" alt="" />
-        </div>
-        <div class="item-task__btn-setting-block">
-            <div class="item-task__btn-settings-content">
-                <button class="item-task__btn-settings">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </div>
-    </li>
-        `;
-        taskElemenents.itemsList.insertAdjacentHTML("afterbegin", popUp);
+    const definePriortyClass = (priorety) => {
+        let priortyClass = "item-task__priority";
+        switch (priorety) {
+            case "low":
+                priortyClass += " item-task__priority_green";
+                break;
+            case "medium":
+                priortyClass += " item-task__priority_yellow";
+                break;
+            case "high":
+                priortyClass += " item-task__priority_red";
+                break;
+            default:
+                break;
+        }
+        return priortyClass;
     };
 
     const clearInputsDataTask = () => {
         taskElemenents.inputTitle.value = "";
         taskElemenents.inputDescription.value = "";
         taskElemenents.inputTags.value = "";
+        removeActiveClassPrioretyItems();
+        hidePrioretyList();
+        addTaskForm.selectPrioretyBtn.style.background = "#fff";
+        addTaskForm.selectPrioretyBtn.style.color = "#8b8da1";
+        addTaskForm.selectPrioretyBtn.texContent = "Приоритет";
+    };
+
+    const addTask = (data) => {
+        if (data.name.length === 0 || data.description.length === 0 || data.tags.length === 0 || data.priorety.length === 0) {
+            alert("Заполните все поля!");
+            return false;
+        }
+        const renderTag = data.tags
+            .map((tag) => {
+                return `<li class="tag__item">#${tag.trim()}</li>`;
+            })
+            .join("");
+        const priortyClass = definePriortyClass(data.priorety);
+        const popUp = `
+        <li class="tasks__item item-task">
+            <div class="item-task__checkbox"></div>
+            <div class="item-task__content">
+                <div class="item-task__name">${data.name}</div>
+                <div class="item-task__description">
+                ${data.description}
+                </div>
+                <div class="item-task__tags tag">
+                    <button class="tag__time">15.02</button>
+                    <ul class="tag__category">
+                    ${renderTag}
+                    </ul>
+                </div>
+            </div>
+            <div class="${priortyClass}">
+                <img src="./img/FlagBanner.svg" alt="" />
+            </div>
+            <div class="item-task__btn-setting-block">
+                <div class="item-task__btn-settings-content">
+                    <button class="item-task__btn-settings">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </li>
+        `;
+        taskElemenents.itemsList.insertAdjacentHTML("afterbegin", popUp);
+        return true;
+    };
+
+    const renderTasksOnStart = (data) => {
+        data.forEach((task) => {
+            const renderTag = task.tags
+                .map((tag) => {
+                    return `<li class="tag__item">#${tag.trim()}</li>`;
+                })
+                .join("");
+            const priortyClass = definePriortyClass(task.priorety);
+            const popUp = `
+            <li class="tasks__item item-task">
+                <div class="item-task__checkbox"></div>
+                <div class="item-task__content">
+                    <div class="item-task__name">${task.name}</div>
+                    <div class="item-task__description">
+                    ${task.description}
+                    </div>
+                    <div class="item-task__tags tag">
+                        <button class="tag__time">15.02</button>
+                        <ul class="tag__category">
+                            ${renderTag}
+                        </ul>
+                    </div>
+                </div>
+                <div class="${priortyClass}">
+                    <img src="./img/FlagBanner.svg" alt="" />
+                </div>
+                <div class="item-task__btn-setting-block">
+                    <div class="item-task__btn-settings-content">
+                        <button class="item-task__btn-settings">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        `;
+            taskElemenents.itemsList.insertAdjacentHTML("afterbegin", popUp);
+        });
     };
 
     return {
@@ -130,6 +265,11 @@ const View = (function () {
         clearInputsDataTask: clearInputsDataTask,
         getInputsDataSettings: getInputsDataSettings,
         checkUserTheme: checkUserTheme,
+        renderTasksOnStart: renderTasksOnStart,
+        showPrioretyList: showPrioretyList,
+        removeActiveClassPrioretyItems: removeActiveClassPrioretyItems,
+        hidePrioretyList: hidePrioretyList,
+        setDefaultValueFromData: setDefaultValueFromData,
     };
 })();
 

@@ -7,7 +7,7 @@ const Model = (function () {
                 description: "Зайди в настройки профиля (шестеренка около имени пользователя) и настрой его под себя",
                 date: "19.02",
                 tags: ["Другое", "Личное"],
-                priorety: "urgently",
+                priorety: "high",
                 status: "in progress",
             },
         ],
@@ -29,14 +29,33 @@ const Model = (function () {
     }
 
     const changeSettings = (data) => {
-        state.settings.userName = data.userName;
-        state.settings.theme = data.theme;
+        if (data.userName.trim() !== "") {
+            state.settings.userName = data.userName;
+            state.settings.theme = data.theme;
+            localStorage.setItem("taskState", JSON.stringify(state));
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    const getTasksFromLocalStorage = () => {
+        return state.tasks;
+    };
+
+    const addNewTaskToLocalStorage = (data) => {
+        if (data.name.length === 0 || data.description.length === 0 || data.tags.length === 0 || data.priorety.length === 0) {
+            return;
+        }
+        state.tasks.push(data);
         localStorage.setItem("taskState", JSON.stringify(state));
     };
 
     return {
         userSettings: state.settings,
         changeSettings: changeSettings,
+        getTasksFromLocalStorage: getTasksFromLocalStorage,
+        addNewTaskToLocalStorage: addNewTaskToLocalStorage,
     };
 })();
 

@@ -401,9 +401,80 @@ body {
     background: url("./../img/CalendarPlus.svg") 0 0 / contain no-repeat;
 }
 
+.container__priorety-block {
+    position: relative;
+}
+
+.add-container__priorety-list {
+    margin: 5px 0px;
+    padding: 10px;
+    position: absolute;
+    z-index: 100;
+    background: #ffffff;
+    border: 1px solid #8b8da1;
+    border-radius: 10px;
+    width: 100%;
+    display: none;
+}
+.add-container__priorety-list.active {
+    display: block;
+}
+.add-container__priorety-item {
+    padding: 10px 19px;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    color: #f4f4f4;
+    border-radius: 8px;
+}
+.add-container__priorety-item:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.add-container__priorety-item_high,
+.add-container__priorety-item_medium,
+.add-container__priorety-item_low {
+    display: flex;
+    cursor: pointer;
+}
+
+.add-container__priorety-item_high {
+    background: #a65555;
+}
+
+.add-container__priorety-item_medium {
+    background: #be9e2c;
+}
+
+.add-container__priorety-item_low {
+    background: #41a77c;
+}
+
+.add-container__priorety-item_high::before,
+.add-container__priorety-item_medium::before,
+.add-container__priorety-item_low::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    background: url("./../img/FlagBanner.svg") 0 0px / contain no-repeat;
+}
+
+.add-container__priorety-item_high:hover,
+.add-container__priorety-item_medium:hover,
+.add-container__priorety-item_low:hover {
+    background: #222078;
+}
+
+.add-container__priorety-item_high.active,
+.add-container__priorety-item_medium.active,
+.add-container__priorety-item_low.active {
+    background: #222078;
+}
 .add-container__priorety {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-weight: 400;
     font-size: 16px;
     line-height: 19px;
@@ -411,6 +482,16 @@ body {
     padding: 10px 20px;
     border: 1px solid #8b8da1;
     border-radius: 8px;
+    min-width: 160px;
+}
+
+.add-container__priorety::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    background: url("./../img/FlagBanner.svg") 0 1px / contain no-repeat;
+    filter: brightness(0.5);
 }
 
 .add-container__priorety::after {

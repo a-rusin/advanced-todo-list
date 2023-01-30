@@ -69,11 +69,33 @@
                             <div class="add-container__open-state" id="add-task-form-open-state" data-add-form="fullForm">
                                 <input type="text" class="add-container__title" placeholder="Введите название…" />
                                 <input type="text" class="add-container__description" placeholder="Описание" />
-                                <input type="text" class="add-container__tags" placeholder="Укажите теги" />
+                                <input type="text" class="add-container__tags" placeholder="Укажите теги через запятую" />
                                 <div class="add-container__btns">
                                     <div class="add-container_btn-left">
                                         <button class="add-container__date">Дата</button>
-                                        <button class="add-container__priorety">Приоретет</button>
+                                        <div class="container__priorety-block">
+                                            <button class="add-container__priorety" data-priorety-open-select>Приоритет</button>
+                                            <ul class="add-container__priorety-list" data-priorety-open-select-list>
+                                                <li
+                                                    class="add-container__priorety-item add-container__priorety-item_high"
+                                                    data-priorety-select-priorety="high"
+                                                >
+                                                    Высокий
+                                                </li>
+                                                <li
+                                                    class="add-container__priorety-item add-container__priorety-item_medium"
+                                                    data-priorety-select-priorety="medium"
+                                                >
+                                                    Средний
+                                                </li>
+                                                <li
+                                                    class="add-container__priorety-item add-container__priorety-item_low"
+                                                    data-priorety-select-priorety="low"
+                                                >
+                                                    Низкий
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="add-container_btn-right">
                                         <button
@@ -126,7 +148,7 @@
 
                         <div class="page__tasks tasks">
                             <ul class="tasks__list" data-tasks>
-                                <li class="tasks__item item-task">
+                                <!-- <li class="tasks__item item-task">
                                     <div class="item-task__checkbox"></div>
                                     <div class="item-task__content">
                                         <div class="item-task__name">Оформить курсовую работу</div>
@@ -151,7 +173,7 @@
                                                 <span></span>
                                                 <span></span>
                                             </button>
-                                            <!-- <ul class="item-settings">
+                                            <ul class="item-settings">
                                                 <li class="item-settings__item">
                                                     <a class="item-settings__link" href="#">
                                                         <img src="./img/PencilLine.svg" alt="" class="item-settings__icon" />
@@ -170,10 +192,10 @@
                                                         <div class="item-settings__text">Удалить</div>
                                                     </a>
                                                 </li>
-                                            </ul> -->
+                                            </ul>
                                         </div>
                                     </div>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>
@@ -187,8 +209,12 @@
                             <div class="footer__copyright">Все права защищены</div>
                         </div>
                         <div class="footer__item">
-                            <a href="#" class="footer__author">Дизайн — Шульмин Антон</a>
-                            <a href="#" class="footer__author">Вёрстка — Русин Александр</a>
+                            <a href="https://www.behance.net/anton_shulmin" class="footer__author" target="_blank"
+                                >Дизайн — Шульмин Антон</a
+                            >
+                            <a href="https://github.com/a-rusin" class="footer__author" target="_blank"
+                                >Вёрстка — Русин Александр</a
+                            >
                         </div>
                     </div>
                     <div class="footer__item">
