@@ -46,11 +46,12 @@
                             <div class="header__right">
                                 <div class="header__propgress-title">Прогресс</div>
                                 <div class="header__progress-text">
-                                    <span class="header__progress-text__blue">12/18 </span> задач выполнено
+                                    <span class="header__progress-text__blue" data-progress-bar-numbers>12/18 </span> задач
+                                    выполнено
                                 </div>
-                                <div class="header__progress-percentages">66%</div>
+                                <div class="header__progress-percentages" data-progress-bar-percentages>66%</div>
                                 <div class="header__progress-shape">
-                                    <div class="header__progress-shape_active"></div>
+                                    <div class="header__progress-shape_active" data-progress-bar-line-inner></div>
                                 </div>
                             </div>
                         </div>
@@ -114,21 +115,21 @@
 
                         <div class="page__filter filter">
                             <ul class="filter__list">
-                                <li class="filter__item item-filter">
-                                    <div class="item-filter__text">Все</div>
-                                    <div class="item-filter__count">34</div>
+                                <li class="filter__item item-filter" data-filter-tasks="all">
+                                    <div class="item-filter__text_active" data-filter-tasks="all">Все</div>
+                                    <div class="item-filter__count_active" data-all-tasks data-filter-tasks="all">34</div>
                                 </li>
-                                <li class="filter__item item-filter">
-                                    <div class="item-filter__text_active">Активные</div>
-                                    <div class="item-filter__count_active">18</div>
+                                <li class="filter__item item-filter" data-filter-tasks="in progress">
+                                    <div class="item-filter__text" data-filter-tasks="in progress">Активные</div>
+                                    <div class="item-filter__count" data-active-tasks data-filter-tasks="in progress">18</div>
                                 </li>
-                                <li class="filter__item item-filter">
-                                    <div class="item-filter__text">Выполненные</div>
-                                    <div class="item-filter__count">12</div>
+                                <li class="filter__item item-filter" data-filter-tasks="done">
+                                    <div class="item-filter__text" data-filter-tasks="done">Выполненные</div>
+                                    <div class="item-filter__count" data-done-tasks data-filter-tasks="done">12</div>
                                 </li>
-                                <li class="filter__item item-filter">
-                                    <div class="item-filter__text">Удалённые</div>
-                                    <div class="item-filter__count">4</div>
+                                <li class="filter__item item-filter" data-filter-tasks="deleted">
+                                    <div class="item-filter__text" data-delete-tasks data-filter-tasks="deleted">Удалённые</div>
+                                    <div class="item-filter__count" data-filter-tasks="deleted">0</div>
                                 </li>
                             </ul>
                         </div>

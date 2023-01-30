@@ -5,6 +5,22 @@ const View = (function () {
         userName: document.querySelector("[data-user-name]"),
         userLocation: document.querySelector("[data-user-location]"),
         cssTheme: document.querySelector("#theme"),
+        propgressBarNumbers: document.querySelector("[data-progress-bar-numbers]"),
+        propgressBarPercentages: document.querySelector("[data-progress-bar-percentages]"),
+        propgressBarLine: document.querySelector("[data-progress-bar-line-inner]"),
+        countAllTask: document.querySelector("[data-all-tasks]"),
+        countActiveTask: document.querySelector("[data-active-tasks]"),
+        countDoneTask: document.querySelector("[data-done-tasks]"),
+    };
+
+    const checkProgressBarNumbers = (min, max) => {
+        header.propgressBarNumbers.textContent = `${min}/${max}`;
+        const percentages = Math.floor((min / max) * 100);
+        header.propgressBarPercentages.textContent = `${percentages}%`;
+        header.propgressBarLine.style.width = `${percentages}%`;
+        header.countAllTask.textContent = max;
+        header.countActiveTask.textContent = max - min;
+        header.countDoneTask.textContent = min;
     };
 
     const checkUserName = (user) => {
@@ -301,6 +317,59 @@ const View = (function () {
         }
     };
 
+    const renderTaskByFilter = (data) => {
+        taskElemenents.itemsList.innerHTML = "";
+        data.forEach((task) => {
+            const renderTag = task.tags
+                .map((tag) => {
+                    return `<li class="tag__item">#${tag.trim()}</li>`;
+                })
+                .join("");
+            const priortyClass = definePriortyClass(task.priorety);
+            const taskClass = defineTaskClass(task.status)[0];
+            const popUp = `
+            <li class="${taskClass}" data-task-id = '${task.id}'>
+                <div class="item-task__checkbox">
+                    <input
+                        id="checkbox-5"
+                        class="item-task__checkbox-input"
+                        name="checkbox-5"
+                        type="checkbox"
+                        data-chekbox-task-item
+                        ${defineTaskClass(task.status)[1] ? "checked" : null}
+                    />
+                    <label for="checkbox-5" class="item-task__checkbox-input-label"></label>
+                </div>
+                <div class="item-task__content">
+                    <div class="item-task__name">${task.name}</div>
+                    <div class="item-task__description">
+                    ${task.description}
+                    </div>
+                    <div class="item-task__tags tag">
+                        <button class="tag__time">15.02</button>
+                        <ul class="tag__category">
+                            ${renderTag}
+                        </ul>
+                    </div>
+                </div>
+                <div class="${priortyClass}">
+                    <img src="./img/FlagBanner.svg" alt="" />
+                </div>
+                <div class="item-task__btn-setting-block">
+                    <div class="item-task__btn-settings-content">
+                        <button class="item-task__btn-settings">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        `;
+            taskElemenents.itemsList.insertAdjacentHTML("afterbegin", popUp);
+        });
+    };
+
     return {
         showFullForm: showFullForm,
         showShortForm: showShortForm,
@@ -319,6 +388,8 @@ const View = (function () {
         hidePrioretyList: hidePrioretyList,
         setDefaultValueFromData: setDefaultValueFromData,
         changeTaskStatus: changeTaskStatus,
+        checkProgressBarNumbers: checkProgressBarNumbers,
+        renderTaskByFilter: renderTaskByFilter,
     };
 })();
 

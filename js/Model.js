@@ -67,6 +67,19 @@ const Model = (function () {
         }
     };
 
+    const getTastStatus = () => {
+        const tasksLength = state.tasks.length;
+        const tasksDoneLength = state.tasks.filter((task) => task.status === "done").length;
+        return [tasksLength, tasksDoneLength];
+    };
+
+    const filterTasksByFilter = (status) => {
+        if (status === "all") {
+            return state.tasks;
+        }
+        return state.tasks.filter((task) => task.status === status);
+    };
+
     return {
         userSettings: state.settings,
         changeSettings: changeSettings,
@@ -74,6 +87,8 @@ const Model = (function () {
         addNewTaskToLocalStorage: addNewTaskToLocalStorage,
         generateNewId: generateNewId,
         changeTaskStatus: changeTaskStatus,
+        getTastStatus: getTastStatus,
+        filterTasksByFilter: filterTasksByFilter,
     };
 })();
 

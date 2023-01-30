@@ -5,6 +5,7 @@ View.checkUserName(Model.userSettings.userName);
 View.checkUserTheme(Model.userSettings.theme);
 View.renderTasksOnStart(Model.getTasksFromLocalStorage());
 View.setDefaultValueFromData(Model.userSettings);
+View.checkProgressBarNumbers(Model.getTastStatus()[1], Model.getTastStatus()[0]);
 
 document.addEventListener("click", function (e) {
     if (e.target.getAttribute("data-add-form") === "cutForm") {
@@ -29,6 +30,7 @@ document.addEventListener("click", function (e) {
         if (isAdd) {
             View.clearInputsDataTask();
         }
+        View.checkProgressBarNumbers(Model.getTastStatus()[1], Model.getTastStatus()[0]);
     }
 
     if (e.target.hasAttribute("data-save-settings")) {
@@ -65,5 +67,11 @@ document.addEventListener("click", function (e) {
             View.changeTaskStatus(e.target.closest(".item-task"), false);
             Model.changeTaskStatus(+e.target.closest(".item-task").getAttribute("data-task-id"), false);
         }
+        View.checkProgressBarNumbers(Model.getTastStatus()[1], Model.getTastStatus()[0]);
+    }
+
+    if (e.target.hasAttribute("data-filter-tasks")) {
+        const filter = Model.filterTasksByFilter(e.target.getAttribute("data-filter-tasks"));
+        View.renderTaskByFilter(filter);
     }
 });
