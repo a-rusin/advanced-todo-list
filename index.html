@@ -4,10 +4,11 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>ToDo List</title>
         <link rel="stylesheet" href="./css/reset.css" />
         <link rel="stylesheet" href="./css/font.css" />
         <link rel="stylesheet" href="./css/light-mode.css" id="theme" />
+        <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+        <title>ToDo List</title>
     </head>
     <body>
         <div class="wrapper">
@@ -25,7 +26,7 @@
                                         <span class="header__gretting-text__blue" data-user-name>Александр</span>
                                     </div>
                                     <div class="header__gear" id="header-open-settings" data-open-settings>
-                                        <img src="./img/GearSix.svg" alt="" data-open-settings />
+                                        <img src="./img/GearSix.svg" alt="Gear for settings" data-open-settings />
                                     </div>
                                 </div>
                                 <div class="header__info">
@@ -37,7 +38,7 @@
                                     </div>
                                     <div class="header-cell_line"></div>
                                     <div class="header-cell">
-                                        <div class="header-cell__count">24°C</div>
+                                        <div class="header-cell__count" data-weather-numbers>24°C</div>
                                         <div class="header-cell__info" data-user-location>Россия, Томск</div>
                                     </div>
                                 </div>
@@ -254,7 +255,7 @@
                             </div>
                             <div class="settings__item">
                                 <div class="settings__label-name">Местоположение</div>
-                                <input type="text" class="settings__input" placeholder="Введите город" />
+                                <input type="text" class="settings__input" placeholder="Введите город" data-input-settings-town />
                             </div>
                         </div>
 
@@ -355,6 +356,97 @@
                         <div class="edit-task__btns">
                             <button class="btn edit-task__save-btn" data-save-edited-task="0">Сохранить</button>
                             <button class="btn edit-task__cancel-btn" data-cancel-edited-task>Отменить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pop-up-first-enter active" data-manual-slider>
+            <div class="pop-up-first-enter__container">
+                <!-- First -->
+                <div class="pop-up-first-enter__body active" data-manual-slide-number="1">
+                    <div class="pop-up-first-enter__img">
+                        <img src="./img/Frame_01.png" alt="" />
+                    </div>
+                    <div class="pop-up-first-enter__content">
+                        <div class="pop-up-first-enter__title">Добро пожаловать в TaskToDo!</div>
+                        <div class="pop-up-first-enter__description">Удобное решение для ваших задач</div>
+                        <div class="pop-up-first-enter__block">
+                            <input
+                                type="text"
+                                class="pop-up-first-enter__input-name"
+                                data-manual-slider-username
+                                placeholder="Укажите ваше имя"
+                            />
+                            <button class="pop-up-first-enter__btn" data-manual-slider-btn-next="1">Продолжить</button>
+                        </div>
+                        <div class="pop-up-first-enter__slider">
+                            <span class="active"></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Second -->
+                <div class="pop-up-first-enter__body" data-manual-slide-number="2">
+                    <div class="pop-up-first-enter__img">
+                        <img src="./img/Frame_02.png" alt="" />
+                    </div>
+                    <div class="pop-up-first-enter__content">
+                        <div class="pop-up-first-enter__title">Статус выполнения</div>
+                        <div class="pop-up-first-enter__description">
+                            Следите за процентом выполненных задач, фильтруйте и настраивайте как вам удобно.
+                        </div>
+                        <div class="pop-up-first-enter__block">
+                            <button class="pop-up-first-enter__btn" data-manual-slider-btn-next="2">Продолжить</button>
+                        </div>
+                        <div class="pop-up-first-enter__slider">
+                            <span></span>
+                            <span class="active"></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Third -->
+                <div class="pop-up-first-enter__body" data-manual-slide-number="3">
+                    <div class="pop-up-first-enter__img">
+                        <img src="./img/Frame_03.png" alt="" />
+                    </div>
+                    <div class="pop-up-first-enter__content">
+                        <div class="pop-up-first-enter__title">Добавление задачи, фильтры, поиск</div>
+                        <div class="pop-up-first-enter__description">
+                            С лёгкостью добавляйте новые задачи, фильтруйте или сортируйте существующие.
+                        </div>
+                        <div class="pop-up-first-enter__block">
+                            <button class="pop-up-first-enter__btn" data-manual-slider-btn-next="3">Продолжить</button>
+                        </div>
+                        <div class="pop-up-first-enter__slider">
+                            <span></span>
+                            <span></span>
+                            <span class="active"></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Fourth -->
+                <div class="pop-up-first-enter__body" data-manual-slide-number="4">
+                    <div class="pop-up-first-enter__img">
+                        <img src="./img/Frame_04.png" alt="" />
+                    </div>
+                    <div class="pop-up-first-enter__content">
+                        <div class="pop-up-first-enter__title">Тёмная тема</div>
+                        <div class="pop-up-first-enter__description">Изменяйте тему со светлой на тёмную в 2 клика!</div>
+                        <div class="pop-up-first-enter__block">
+                            <button class="pop-up-first-enter__btn" data-manual-slider-btn-finish>К работе</button>
+                        </div>
+                        <div class="pop-up-first-enter__slider">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span class="active"></span>
                         </div>
                     </div>
                 </div>

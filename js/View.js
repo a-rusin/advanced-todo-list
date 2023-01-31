@@ -1,4 +1,33 @@
 const View = (function () {
+    // Started Manual (tab/slider) ==================================================== //
+
+    const sliderManual = {
+        popUp: document.querySelector("[data-manual-slider]"),
+        slides: document.querySelectorAll("[data-manual-slide-number]"),
+        inputName: document.querySelector("[data-manual-slider-username]"),
+    };
+
+    const checkUserNameInManual = () => {
+        return sliderManual.inputName.value;
+    };
+
+    const showNextSlide = (currentSlide) => {
+        if (sliderManual.inputName.value.trim().length !== 0) {
+            sliderManual.slides.forEach((slide) => {
+                slide.classList.remove("active");
+                if (slide.getAttribute("data-manual-slide-number") == currentSlide + 1) {
+                    slide.classList.add("active");
+                }
+            });
+        } else {
+            alert("Введите имя!");
+        }
+    };
+
+    const deleteAndCloseManual = () => {
+        sliderManual.popUp.remove();
+    };
+
     // HEADER ======================================================================== //
 
     const header = {
@@ -15,6 +44,16 @@ const View = (function () {
         filterHeader: document.querySelectorAll(".item-filter"),
         timeLabel: document.querySelector("[data-time-header]"),
         dateLabel: document.querySelector("[data-date-header]"),
+        weatherNumbersLabel: document.querySelector("[data-weather-numbers]"),
+        weatherLocationLabel: document.querySelector("[data-user-location]"),
+    };
+
+    const showWeather = (data) => {
+        console.log(data);
+        if (data) {
+            header.weatherNumbersLabel.textContent = `${data.temprature}°C`;
+            header.weatherLocationLabel.textContent = `${data.country}, ${data.town}`;
+        }
     };
 
     const changeHeaderTheme = (value) => {
@@ -87,17 +126,16 @@ const View = (function () {
     const popUpSettings = {
         window: document.querySelector("[data-pop-up-settings]"),
         closeBtn: document.querySelector("[data-close-settings]"),
-        inputName: document.querySelector(".settings__input"),
+        inputName: document.querySelector("[data-input-settings-name]"),
+        inputTown: document.querySelector("[data-input-settings-town]"),
         inputLightTheme: document.querySelector("#radio-1-light-theme"),
         inputDarkTheme: document.querySelector("#radio-1-dark-theme"),
     };
 
     const setDefaultValueFromData = (data) => {
-        if (data.userName === "Пользователь") {
-            popUpSettings.inputName.value = "";
-        } else {
-            popUpSettings.inputName.value = data.userName;
-        }
+        popUpSettings.inputName.value = data.userName;
+
+        popUpSettings.inputTown.value = data.location;
 
         if (data.theme === "light") {
             popUpSettings.inputLightTheme.checked = true;
@@ -119,6 +157,7 @@ const View = (function () {
     const getInputsDataSettings = () => {
         return {
             userName: popUpSettings.inputName.value,
+            town: popUpSettings.inputTown.value,
             theme: popUpSettings.inputLightTheme.checked ? "light" : "dark",
         };
     };
@@ -607,12 +646,16 @@ const View = (function () {
     };
 
     return {
+        showNextSlide: showNextSlide,
+        deleteAndCloseManual: deleteAndCloseManual,
+        checkUserNameInManual: checkUserNameInManual,
         showFullForm: showFullForm,
         showShortForm: showShortForm,
         showPopUpSettings: showPopUpSettings,
         hidePopUpSettings: hidePopUpSettings,
         checkUserName: checkUserName,
         checkUserLocation: checkUserLocation,
+        showWeather: showWeather,
         addTask: addTask,
         getInputsDataTask: getInputsDataTask,
         clearInputsDataTask: clearInputsDataTask,

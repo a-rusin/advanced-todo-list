@@ -7,6 +7,11 @@ View.renderTasks(Model.getTasksFromLocalStorage());
 View.setDefaultValueFromData(Model.userSettings);
 View.checkProgressBarNumbers(Model.getTastStatus()[1], Model.getTastStatus()[0], Model.getTastStatus()[2]);
 View.showCurrentDateAndTime();
+if (!Model.isShowManualOnStart()) {
+    View.deleteAndCloseManual();
+}
+const userTown = Model.userSettings.location;
+Model.getWeather(userTown, true).then((data) => View.showWeather(data));
 
 document.addEventListener("click", function (e) {
     if (e.target.hasAttribute("data-scroll-up")) {
@@ -128,6 +133,24 @@ document.addEventListener("click", function (e) {
         console.log(newData);
         View.duplicateTask(newData);
         View.hideTaskSettings(e.target.closest(".item-settings.active"));
+    }
+
+    if (e.target.hasAttribute("data-manual-slider-btn-next")) {
+        View.showNextSlide(+e.target.getAttribute("data-manual-slider-btn-next"));
+        if (+e.target.getAttribute("data-manual-slider-btn-next") === 1) {
+            const userName = View.checkUserNameInManual();
+            Model.setUserNameFromManual(userName);
+        }
+    }
+
+    if (e.target.hasAttribute("data-manual-slider-btn-finish")) {
+        View.deleteAndCloseManual();
+        Model.hideFirstManualOnStart();
+        if (window.location.href === "https://a-rusin.github.io/advanced-todo-list/") {
+            window.location.href = "https://a-rusin.github.io/advanced-todo-list/";
+        } else {
+            window.location.href = "/";
+        }
     }
 });
 

@@ -14,8 +14,9 @@ const Model = (function () {
 
         settings: {
             userName: "Пользователь",
-            location: "Россия, Томск",
+            location: "Томск",
             theme: "light",
+            firstTime: true,
         },
     };
 
@@ -32,6 +33,7 @@ const Model = (function () {
         if (data.userName.trim() !== "") {
             state.settings.userName = data.userName;
             state.settings.theme = data.theme;
+            state.settings.location = data.town;
             localStorage.setItem("taskState", JSON.stringify(state));
             return true;
         } else {
@@ -117,6 +119,52 @@ const Model = (function () {
         return newTask;
     };
 
+    const hideFirstManualOnStart = () => {
+        state.settings.firstTime = false;
+        localStorage.setItem("taskState", JSON.stringify(state));
+    };
+
+    const isShowManualOnStart = () => {
+        return state.settings.firstTime ? true : false;
+    };
+
+    const setUserNameFromManual = (userName) => {
+        if (userName.trim().length !== 0) {
+            state.settings.userName = userName;
+            localStorage.setItem("taskState", JSON.stringify(state));
+        }
+    };
+
+    const getWeather = async (town = "Томск", bool) => {
+        try {
+            //bool for economy request only
+            if (bool) {
+                const res = await fetch(
+                    `https://api.openweathermap.org/data/2.5/weather?q=${town}&appid=0bba0a4b4a9fc2f6ff92301241511834`
+                );
+                const answer = await res.json();
+                const countryObj = {
+                    RU: "Россия",
+                    KZ: "Казахстан",
+                    BY: "Беларусь",
+                    US: "США",
+                };
+                const data = {
+                    country: countryObj[answer.sys.country],
+                    town: town,
+                    temprature:
+                        Math.round(answer.main.temp - 273) < 0
+                            ? `–${Math.abs(Math.round(answer.main.temp - 273))}`
+                            : Math.round(answer.main.temp - 273),
+                };
+                return data;
+            }
+        } catch (error) {
+            console.log(error);
+            return error;
+        }
+    };
+
     return {
         userSettings: state.settings,
         changeSettings: changeSettings,
@@ -131,6 +179,10 @@ const Model = (function () {
         duplicateTask: duplicateTask,
         getTaskById: getTaskById,
         editTaskProps: editTaskProps,
+        hideFirstManualOnStart: hideFirstManualOnStart,
+        isShowManualOnStart: isShowManualOnStart,
+        setUserNameFromManual: setUserNameFromManual,
+        getWeather: getWeather,
     };
 })();
 
