@@ -30,8 +30,10 @@
                                 </div>
                                 <div class="header__info">
                                     <div class="header-cell">
-                                        <div class="header-cell__count">16:03</div>
-                                        <div class="header-cell__info">Сб, 11 декабря</div>
+                                        <div class="header-cell__count" data-time-header>
+                                            16<span class="header-cell__count-blink">:</span>03
+                                        </div>
+                                        <div class="header-cell__info" data-date-header>Сб, 11 декабря</div>
                                     </div>
                                     <div class="header-cell_line"></div>
                                     <div class="header-cell">
@@ -115,9 +117,9 @@
 
                         <div class="page__filter filter">
                             <ul class="filter__list">
-                                <li class="filter__item item-filter" data-filter-tasks="all">
-                                    <div class="item-filter__text_active" data-filter-tasks="all">Все</div>
-                                    <div class="item-filter__count_active" data-all-tasks data-filter-tasks="all">34</div>
+                                <li class="filter__item item-filter active" data-filter-tasks="all">
+                                    <div class="item-filter__text" data-filter-tasks="all">Все</div>
+                                    <div class="item-filter__count" data-all-tasks data-filter-tasks="all">34</div>
                                 </li>
                                 <li class="filter__item item-filter" data-filter-tasks="in progress">
                                     <div class="item-filter__text" data-filter-tasks="in progress">Активные</div>
@@ -129,7 +131,7 @@
                                 </li>
                                 <li class="filter__item item-filter" data-filter-tasks="deleted">
                                     <div class="item-filter__text" data-delete-tasks data-filter-tasks="deleted">Удалённые</div>
-                                    <div class="item-filter__count" data-filter-tasks="deleted">0</div>
+                                    <div class="item-filter__count" data-deleted-tasks data-filter-tasks="deleted">0</div>
                                 </li>
                             </ul>
                         </div>
@@ -139,11 +141,11 @@
 
                             <div class="toolbar__center">Фильтр</div>
 
-                            <div class="toolbar__right">
-                                <div class="toolbar__search-icon">
-                                    <img src="./img/MagnifyingGlass.svg" alt="" />
+                            <div class="toolbar__right" data-search-tasks>
+                                <div class="toolbar__search-icon" data-search-tasks>
+                                    <img src="./img/MagnifyingGlass.svg" alt="" data-search-tasks />
                                 </div>
-                                <input type="text" name="search" placeholder="Поиск" class="toolbar__input" />
+                                <input type="text" name="search" placeholder="Поиск" class="toolbar__input" data-search-tasks />
                             </div>
                         </div>
 
@@ -227,9 +229,9 @@
                         </div>
                     </div>
                     <div class="footer__item">
-                        <button class="footer__up">
-                            <img src="./img/CaretDown.svg" alt="" class="footer__up-img" />
-                            <div class="footer__up-text">Наверх</div>
+                        <button class="footer__up" data-scroll-up>
+                            <img src="./img/CaretDown.svg" alt="" class="footer__up-img" data-scroll-up />
+                            <div class="footer__up-text" data-scroll-up>Наверх</div>
                         </button>
                     </div>
                 </div>
@@ -332,6 +334,28 @@
                         </div>
 
                         <button class="settings__btn" data-save-settings>Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pop-up" data-pop-up-edit-task>
+            <div class="pop-up__container">
+                <div class="pop-up__body">
+                    <div class="edit-task">
+                        <div class="edit-task__text edit-task__text-info">
+                            Редактирование задания <strong class="edit-task__text-number">№5</strong>
+                        </div>
+                        <div class="edit-task__text">Название</div>
+                        <input type="text" name="title" class="edit-task__name" placeholder="Название" />
+                        <div class="edit-task__text">Описание</div>
+                        <input type="text" name="description" class="edit-task__description" placeholder="Описание" />
+                        <div class="edit-task__text">Теги</div>
+                        <input type="text" name="tags" class="edit-task__tags" placeholder="Теги" />
+                        <div class="edit-task__btns">
+                            <button class="btn edit-task__save-btn" data-save-edited-task="0">Сохранить</button>
+                            <button class="btn edit-task__cancel-btn" data-cancel-edited-task>Отменить</button>
+                        </div>
                     </div>
                 </div>
             </div>

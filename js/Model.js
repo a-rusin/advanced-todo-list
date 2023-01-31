@@ -68,16 +68,53 @@ const Model = (function () {
     };
 
     const getTastStatus = () => {
-        const tasksLength = state.tasks.length;
+        const tasksLength = state.tasks.filter((task) => task.status !== "deleted").length;
         const tasksDoneLength = state.tasks.filter((task) => task.status === "done").length;
-        return [tasksLength, tasksDoneLength];
+        const tasksDeletedLength = state.tasks.filter((task) => task.status === "deleted").length;
+        return [tasksLength, tasksDoneLength, tasksDeletedLength];
     };
 
     const filterTasksByFilter = (status) => {
         if (status === "all") {
-            return state.tasks;
+            return state.tasks.filter((task) => task.status !== "deleted");
         }
         return state.tasks.filter((task) => task.status === status);
+    };
+
+    const searchTasksByName = (trim) => {
+        if (trim.trim().length === 0) {
+            return state.tasks;
+        }
+        return state.tasks.filter((task) => task.name.trim().toLowerCase().includes(trim.trim().toLowerCase()));
+    };
+
+    const deleteTask = (id) => {
+        const task = state.tasks.find((task) => task.id === id);
+        task.status = "deleted";
+        localStorage.setItem("taskState", JSON.stringify(state));
+    };
+
+    const getTaskById = (id) => {
+        return state.tasks.find((task) => task.id === id);
+    };
+
+    const editTaskProps = (id, data) => {
+        const task = state.tasks.find((task) => task.id === id);
+        task.name = data.name;
+        task.description = data.description;
+        task.tags = data.tags;
+        localStorage.setItem("taskState", JSON.stringify(state));
+    };
+
+    const duplicateTask = (id) => {
+        const task = state.tasks.find((task) => task.id === id);
+        const newTask = {
+            ...task,
+            id: generateNewId(),
+        };
+        state.tasks = [...state.tasks, newTask];
+        localStorage.setItem("taskState", JSON.stringify(state));
+        return newTask;
     };
 
     return {
@@ -89,6 +126,11 @@ const Model = (function () {
         changeTaskStatus: changeTaskStatus,
         getTastStatus: getTastStatus,
         filterTasksByFilter: filterTasksByFilter,
+        searchTasksByName: searchTasksByName,
+        deleteTask: deleteTask,
+        duplicateTask: duplicateTask,
+        getTaskById: getTaskById,
+        editTaskProps: editTaskProps,
     };
 })();
 

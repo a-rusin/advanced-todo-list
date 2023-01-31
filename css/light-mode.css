@@ -122,6 +122,16 @@ body {
     color: #222078;
 }
 
+.header-cell__count-blink {
+    animation: blinker 1s ease-in-out infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
 .header-cell__info {
     font-weight: 400;
     font-size: 20px;
@@ -605,19 +615,6 @@ body {
     line-height: 35px;
     color: #c9c9c9;
     margin-right: 10px;
-    transition: color 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
-    position: relative;
-}
-
-.item-filter__text::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    border-bottom: 1px solid #222078;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out, bottom 0.2s ease-in-out;
 }
 
 .item-filter__count {
@@ -627,41 +624,27 @@ body {
     padding: 6px 10px;
     background-color: #c9c9c9;
     border-radius: 10px;
-    transition: background-color 0.2s ease-in-out;
 }
 
-.item-filter__text_active {
+.item-filter.active .item-filter__text,
+.item-filter:hover .item-filter__text {
     color: #222078;
     border-bottom: 1px solid #222078;
     font-weight: 400;
     font-size: 20px;
     line-height: 35px;
     margin-right: 10px;
-    transition: color 0.2s ease-in-out, border-bottom 0.2s ease-in-out;
-    position: relative;
+    transform: translateY(1px);
 }
 
-.item-filter__count_active {
+.item-filter.active .item-filter__count,
+.item-filter:hover .item-filter__count {
     background-color: #222078;
     font-weight: 400;
     font-size: 16px;
     color: #f4f4f4;
     padding: 6px 10px;
     border-radius: 10px;
-    transition: background-color 0.2s ease-in-out;
-}
-
-.item-filter:hover .item-filter__text::after {
-    opacity: 1;
-    bottom: 0px;
-}
-
-.item-filter:hover .item-filter__text {
-    color: #222078;
-}
-
-.item-filter:hover .item-filter__count {
-    background-color: #222078;
 }
 
 @media (max-width: 530px) {
@@ -1014,6 +997,7 @@ body {
 }
 
 .item-settings {
+    display: none;
     position: absolute;
     top: 70%;
     right: 50%;
@@ -1022,6 +1006,10 @@ body {
     border-radius: 10px;
     padding: 10px;
     min-width: 220px;
+}
+
+.item-settings.active {
+    display: block;
 }
 
 .item-settings__item {
@@ -1048,10 +1036,23 @@ body {
     background-color: #e2e2e2;
 }
 
-.item-settings__icon {
+.item-settings__link::before {
+    content: "";
+    width: 20px;
+    height: 20px;
     margin-right: 10px;
 }
-.item-settings__text {
+
+.item-settings__link_edit::before {
+    background: url("./../img/PencilLine.svg") 0 0px / contain no-repeat;
+}
+
+.item-settings__link_duplicate::before {
+    background: url("./../img/Copy.svg") 0 0px / contain no-repeat;
+}
+
+.item-settings__link_delete::before {
+    background: url("./../img/Trash.svg") 0 0px / contain no-repeat;
 }
 
 /* Custom radio button and checkbox end ==================================================================================================== */
@@ -1572,4 +1573,42 @@ body {
     .item-theme__block {
         padding: 20px;
     }
+}
+
+/* Pop up edit task */
+
+.edit-task {
+    display: flex;
+    flex-direction: column;
+}
+.edit-task__text {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 5px;
+}
+.edit-task__text-info {
+    text-align: center;
+}
+.edit-task__name,
+.edit-task__description,
+.edit-task__tags {
+    padding: 10px;
+    margin-bottom: 20px;
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    border: 1px solid #8b8da1;
+    border-radius: 10px;
+}
+.edit-task__cancel-btn {
+    border: 1px solid #8b8da1;
+    color: #8b8da1;
+}
+.edit-task__save-btn {
+    border: 1px solid #222078;
+    color: #ffffff;
+    background-color: #222078;
 }

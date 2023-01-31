@@ -11,9 +11,54 @@ const View = (function () {
         countAllTask: document.querySelector("[data-all-tasks]"),
         countActiveTask: document.querySelector("[data-active-tasks]"),
         countDoneTask: document.querySelector("[data-done-tasks]"),
+        countDeletedTask: document.querySelector("[data-deleted-tasks]"),
+        filterHeader: document.querySelectorAll(".item-filter"),
+        timeLabel: document.querySelector("[data-time-header]"),
+        dateLabel: document.querySelector("[data-date-header]"),
     };
 
-    const checkProgressBarNumbers = (min, max) => {
+    const changeHeaderTheme = (value) => {
+        header.filterHeader.forEach((item) => {
+            item.classList.remove("active");
+            if (item.getAttribute("data-filter-tasks") === value) {
+                item.classList.add("active");
+            }
+        });
+    };
+
+    const setTime = () => {
+        const date = new Date();
+        const time = date.toLocaleTimeString().split(":");
+        const weekdayNames = ["Вскр", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+        const currentWeekday = weekdayNames[date.getDay()];
+        const monthNames = [
+            "Января",
+            "Февраля",
+            "Марта",
+            "Апреля",
+            "Мая",
+            "Июня",
+            "Июля",
+            "Августа",
+            "Сентября",
+            "Октября",
+            "Ноября",
+            "Декабря",
+        ];
+        const currentMonth = monthNames[date.getMonth()];
+        const currentDay = date.getDate();
+        header.timeLabel.innerHTML = `${time[0]}<span class = "header-cell__count-blink" >:</span>${time[1]}`;
+        header.dateLabel.innerHTML = `${currentWeekday}, ${currentDay} ${currentMonth}`;
+    };
+
+    const showCurrentDateAndTime = () => {
+        setTime();
+        setInterval(() => {
+            setTime();
+        }, 60000);
+    };
+
+    const checkProgressBarNumbers = (min, max, deleted) => {
         header.propgressBarNumbers.textContent = `${min}/${max}`;
         const percentages = Math.floor((min / max) * 100);
         header.propgressBarPercentages.textContent = `${percentages}%`;
@@ -21,6 +66,7 @@ const View = (function () {
         header.countAllTask.textContent = max;
         header.countActiveTask.textContent = max - min;
         header.countDoneTask.textContent = min;
+        header.countDeletedTask.textContent = deleted;
     };
 
     const checkUserName = (user) => {
@@ -74,6 +120,38 @@ const View = (function () {
         return {
             userName: popUpSettings.inputName.value,
             theme: popUpSettings.inputLightTheme.checked ? "light" : "dark",
+        };
+    };
+
+    // pop up edit task
+
+    const popUpEditTask = {
+        window: document.querySelector("[data-pop-up-edit-task]"),
+        taskId: document.querySelector(".edit-task__text-number"),
+        inputName: document.querySelector(".edit-task__name"),
+        inputDescription: document.querySelector(".edit-task__description"),
+        inputTags: document.querySelector(".edit-task__tags"),
+        btnSave: document.querySelector("[data-save-edited-task]"),
+    };
+
+    const showPopUpEditTask = (data) => {
+        popUpEditTask.taskId.textContent = `№${data.id}`;
+        popUpEditTask.inputName.value = data.name;
+        popUpEditTask.inputDescription.value = data.description;
+        popUpEditTask.inputTags.value = data.tags.join(", ");
+        popUpEditTask.btnSave.setAttribute("data-save-edited-task", data.id);
+        popUpEditTask.window.classList.add("active");
+    };
+
+    const hidePopUpEditTask = () => {
+        popUpEditTask.window.classList.remove("active");
+    };
+
+    const getEditedTask = () => {
+        return {
+            name: popUpEditTask.inputName.value,
+            description: popUpEditTask.inputDescription.value,
+            tags: popUpEditTask.inputTags.value.split(","),
         };
     };
 
@@ -244,11 +322,28 @@ const View = (function () {
             </div>
             <div class="item-task__btn-setting-block">
                 <div class="item-task__btn-settings-content">
-                    <button class="item-task__btn-settings">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                    <button class="item-task__btn-settings" data-open-settings-id='${newId}'>
+                        <span data-open-settings-id='${newId}'></span>
+                        <span data-open-settings-id='${newId}'></span>
+                        <span data-open-settings-id='${newId}'></span>
                     </button>
+                    <ul class="item-settings">
+                        <li class="item-settings__item">
+                            <a class="item-settings__link item-settings__link_edit" href="#" data-edit-task-id='${newId}'>
+                                Редактировать
+                            </a>
+                        </li>
+                        <li class="item-settings__item">
+                            <a class="item-settings__link item-settings__link_duplicate" href="#" data-duplicate-task-id='${newId}'>
+                                Дублировать
+                            </a>
+                        </li>
+                        <li class="item-settings__item">
+                            <a class="item-settings__link item-settings__link_delete" href="#" data-delete-task-id='${newId}'>
+                                Удалить
+                            </a>
+                        </li>
+                        </ul>
                 </div>
             </div>
         </li>
@@ -257,16 +352,18 @@ const View = (function () {
         return true;
     };
 
-    const renderTasksOnStart = (data) => {
+    const renderTasks = (data) => {
+        taskElemenents.itemsList.innerHTML = "";
         data.forEach((task) => {
-            const renderTag = task.tags
-                .map((tag) => {
-                    return `<li class="tag__item">#${tag.trim()}</li>`;
-                })
-                .join("");
-            const priortyClass = definePriortyClass(task.priorety);
-            const taskClass = defineTaskClass(task.status)[0];
-            const popUp = `
+            if (task.status !== "deleted") {
+                const renderTag = task.tags
+                    .map((tag) => {
+                        return `<li class="tag__item">#${tag.trim()}</li>`;
+                    })
+                    .join("");
+                const priortyClass = definePriortyClass(task.priorety);
+                const taskClass = defineTaskClass(task.status)[0];
+                const popUp = `
             <li class="${taskClass}" data-task-id = '${task.id}'>
                 <div class="item-task__checkbox">
                     <input
@@ -296,28 +393,42 @@ const View = (function () {
                 </div>
                 <div class="item-task__btn-setting-block">
                     <div class="item-task__btn-settings-content">
-                        <button class="item-task__btn-settings">
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                        <button class="item-task__btn-settings" data-open-settings-id='${task.id}'>
+                            <span data-open-settings-id='${task.id}'></span>
+                            <span data-open-settings-id='${task.id}'></span>
+                            <span data-open-settings-id='${task.id}'></span>
                         </button>
+                        <ul class="item-settings">
+                            <li class="item-settings__item">
+                                <a class="item-settings__link item-settings__link_edit" href="#" data-edit-task-id='${task.id}'>
+                                    Редактировать
+                                </a>
+                            </li>
+                            <li class="item-settings__item">
+                                <a class="item-settings__link item-settings__link_duplicate" href="#" data-duplicate-task-id='${
+                                    task.id
+                                }'>
+                                    Дублировать
+                                </a>
+                            </li>
+                            <li class="item-settings__item">
+                                <a class="item-settings__link item-settings__link_delete" href="#" data-delete-task-id='${
+                                    task.id
+                                }'>
+                                    Удалить
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </li>
         `;
-            taskElemenents.itemsList.insertAdjacentHTML("afterbegin", popUp);
+                taskElemenents.itemsList.insertAdjacentHTML("afterbegin", popUp);
+            }
         });
     };
 
-    const changeTaskStatus = (task, bool) => {
-        if (bool) {
-            task.classList.add("active");
-        } else {
-            task.classList.remove("active");
-        }
-    };
-
-    const renderTaskByFilter = (data) => {
+    const renderDeletedTasks = (data) => {
         taskElemenents.itemsList.innerHTML = "";
         data.forEach((task) => {
             const renderTag = task.tags
@@ -357,16 +468,141 @@ const View = (function () {
                 </div>
                 <div class="item-task__btn-setting-block">
                     <div class="item-task__btn-settings-content">
-                        <button class="item-task__btn-settings">
-                            <span></span>
-                            <span></span>
-                            <span></span>
+                        <button class="item-task__btn-settings" data-open-settings-id='${task.id}'>
+                            <span data-open-settings-id='${task.id}'></span>
+                            <span data-open-settings-id='${task.id}'></span>
+                            <span data-open-settings-id='${task.id}'></span>
                         </button>
+                        <ul class="item-settings">
+                                <li class="item-settings__item">
+                                    <a class="item-settings__link item-settings__link_edit" href="#" data-edit-task-id='${
+                                        task.id
+                                    }'>
+                                        Редактировать
+                                    </a>
+                                </li>
+                                <li class="item-settings__item">
+                                    <a class="item-settings__link item-settings__link_duplicate" href="#" data-duplicate-task-id='${
+                                        task.id
+                                    }'>
+                                        Дублировать
+                                    </a>
+                                </li>
+                                <li class="item-settings__item">
+                                    <a class="item-settings__link item-settings__link_delete" href="#" data-delete-task-id='${
+                                        task.id
+                                    }'>
+                                        Удалить
+                                    </a>
+                                </li>
+                        </ul>
                     </div>
                 </div>
             </li>
         `;
             taskElemenents.itemsList.insertAdjacentHTML("afterbegin", popUp);
+        });
+    };
+
+    const changeTaskStatus = (task, bool) => {
+        if (bool) {
+            task.classList.add("active");
+        } else {
+            task.classList.remove("active");
+        }
+    };
+
+    const openTaskSettings = (elem) => {
+        elem.classList.toggle("active");
+    };
+
+    const hideTaskSettings = (elem) => {
+        elem.classList.remove("active");
+    };
+
+    const deleteTask = (id) => {
+        document.querySelector(`[data-task-id="${id}"]`).remove();
+    };
+
+    const duplicateTask = (data) => {
+        const renderTag = data.tags
+            .map((tag) => {
+                return `<li class="tag__item">#${tag.trim()}</li>`;
+            })
+            .join("");
+        const priortyClass = definePriortyClass(data.priorety);
+        const taskClass = defineTaskClass(data.status)[0];
+        const popUp = `
+            <li class="${taskClass}" data-task-id = '${data.id}'>
+                <div class="item-task__checkbox">
+                    <input
+                        id="checkbox-5"
+                        class="item-task__checkbox-input"
+                        name="checkbox-5"
+                        type="checkbox"
+                        data-chekbox-task-item
+                        ${defineTaskClass(data.status)[1] ? "checked" : null}
+                    />
+                    <label for="checkbox-5" class="item-task__checkbox-input-label"></label>
+                </div>
+                <div class="item-task__content">
+                    <div class="item-task__name">${data.name}</div>
+                    <div class="item-task__description">
+                    ${data.description}
+                    </div>
+                    <div class="item-task__tags tag">
+                        <button class="tag__time">15.02</button>
+                        <ul class="tag__category">
+                            ${renderTag}
+                        </ul>
+                    </div>
+                </div>
+                <div class="${priortyClass}">
+                    <img src="./img/FlagBanner.svg" alt="" />
+                </div>
+                <div class="item-task__btn-setting-block">
+                    <div class="item-task__btn-settings-content">
+                        <button class="item-task__btn-settings" data-open-settings-id='${data.id}'>
+                            <span data-open-settings-id='${data.id}'></span>
+                            <span data-open-settings-id='${data.id}'></span>
+                            <span data-open-settings-id='${data.id}'></span>
+                        </button>
+                        <ul class="item-settings">
+                                <li class="item-settings__item">
+                                    <a class="item-settings__link item-settings__link_edit" href="#" data-edit-task-id='${
+                                        data.id
+                                    }'>
+                                        Редактировать
+                                    </a>
+                                </li>
+                                <li class="item-settings__item">
+                                    <a class="item-settings__link item-settings__link_duplicate" href="#" data-duplicate-task-id='${
+                                        data.id
+                                    }'>
+                                        Дублировать
+                                    </a>
+                                </li>
+                                <li class="item-settings__item">
+                                    <a class="item-settings__link item-settings__link_delete" href="#" data-delete-task-id='${
+                                        data.id
+                                    }'>
+                                        Удалить
+                                    </a>
+                                </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        `;
+        taskElemenents.itemsList.insertAdjacentHTML("afterbegin", popUp);
+    };
+
+    // footer ===============================================================================
+
+    const scrollUp = () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
         });
     };
 
@@ -382,14 +618,24 @@ const View = (function () {
         clearInputsDataTask: clearInputsDataTask,
         getInputsDataSettings: getInputsDataSettings,
         checkUserTheme: checkUserTheme,
-        renderTasksOnStart: renderTasksOnStart,
+        renderTasks: renderTasks,
+        renderDeletedTasks: renderDeletedTasks,
         showPrioretyList: showPrioretyList,
         removeActiveClassPrioretyItems: removeActiveClassPrioretyItems,
         hidePrioretyList: hidePrioretyList,
         setDefaultValueFromData: setDefaultValueFromData,
         changeTaskStatus: changeTaskStatus,
         checkProgressBarNumbers: checkProgressBarNumbers,
-        renderTaskByFilter: renderTaskByFilter,
+        changeHeaderTheme: changeHeaderTheme,
+        showCurrentDateAndTime: showCurrentDateAndTime,
+        openTaskSettings: openTaskSettings,
+        hideTaskSettings: hideTaskSettings,
+        deleteTask: deleteTask,
+        showPopUpEditTask: showPopUpEditTask,
+        hidePopUpEditTask: hidePopUpEditTask,
+        duplicateTask: duplicateTask,
+        getEditedTask: getEditedTask,
+        scrollUp: scrollUp,
     };
 })();
 
