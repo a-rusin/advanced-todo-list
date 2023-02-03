@@ -152,6 +152,12 @@ document.addEventListener("click", function (e) {
             window.location.href = "/";
         }
     }
+
+    if (e.target.hasAttribute("data-clear-items")) {
+        if (e.target.getAttribute("data-clear-items") === "all") {
+            View.toggleCheckAllClearItems(e.target.checked);
+        }
+    }
 });
 
 const searchForm = document.querySelector("[data-search-tasks]");

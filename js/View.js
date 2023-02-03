@@ -100,7 +100,11 @@ const View = (function () {
     const checkProgressBarNumbers = (min, max, deleted) => {
         header.propgressBarNumbers.textContent = `${min}/${max}`;
         const percentages = Math.floor((min / max) * 100);
-        header.propgressBarPercentages.textContent = `${percentages}%`;
+        if (!isNaN(percentages)) {
+            header.propgressBarPercentages.textContent = `${percentages}%`;
+        } else {
+            header.propgressBarPercentages.textContent = `0%`;
+        }
         header.propgressBarLine.style.width = `${percentages}%`;
         header.countAllTask.textContent = max;
         header.countActiveTask.textContent = max - min;
@@ -130,6 +134,7 @@ const View = (function () {
         inputTown: document.querySelector("[data-input-settings-town]"),
         inputLightTheme: document.querySelector("#radio-1-light-theme"),
         inputDarkTheme: document.querySelector("#radio-1-dark-theme"),
+        deleteTasksCheckboxes: document.querySelectorAll("[data-clear-items]"),
     };
 
     const setDefaultValueFromData = (data) => {
@@ -155,11 +160,28 @@ const View = (function () {
     };
 
     const getInputsDataSettings = () => {
+        let markedCheckboxes = [];
+
+        Array.from(popUpSettings.deleteTasksCheckboxes).forEach((item) => {
+            if (item.checked) {
+                markedCheckboxes.push(item.getAttribute("data-clear-items"));
+            }
+        });
+
         return {
             userName: popUpSettings.inputName.value,
             town: popUpSettings.inputTown.value,
             theme: popUpSettings.inputLightTheme.checked ? "light" : "dark",
+            markedCheckboxes: markedCheckboxes,
         };
+    };
+
+    const toggleCheckAllClearItems = (isCheked) => {
+        if (isCheked) {
+            popUpSettings.deleteTasksCheckboxes.forEach((item) => (item.checked = true));
+        } else {
+            popUpSettings.deleteTasksCheckboxes.forEach((item) => (item.checked = false));
+        }
     };
 
     // pop up edit task
@@ -679,6 +701,7 @@ const View = (function () {
         duplicateTask: duplicateTask,
         getEditedTask: getEditedTask,
         scrollUp: scrollUp,
+        toggleCheckAllClearItems: toggleCheckAllClearItems,
     };
 })();
 

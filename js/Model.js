@@ -34,11 +34,21 @@ const Model = (function () {
             state.settings.userName = data.userName;
             state.settings.theme = data.theme;
             state.settings.location = data.town;
+            clearTasks(data.markedCheckboxes);
             localStorage.setItem("taskState", JSON.stringify(state));
             return true;
         } else {
             return false;
         }
+    };
+
+    const clearTasks = (arr) => {
+        arr.forEach((item) => {
+            if (item !== "all") {
+                state.tasks = state.tasks.filter((task) => task.status !== item);
+            }
+        });
+        return state.tasks;
     };
 
     const getTasksFromLocalStorage = () => {
@@ -54,7 +64,11 @@ const Model = (function () {
     };
 
     const generateNewId = () => {
-        return +state.tasks[state.tasks.length - 1].id + 1;
+        if (state.tasks.length === 0) {
+            return 0;
+        } else {
+            return +state.tasks[state.tasks.length - 1].id + 1;
+        }
     };
 
     const changeTaskStatus = (id, bool) => {
