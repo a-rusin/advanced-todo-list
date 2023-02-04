@@ -19,7 +19,7 @@
                             <div class="header__left">
                                 <div class="header__greeting">
                                     <div class="header__avatar">
-                                        <img src="./img/avatar.png" alt="" />
+                                        <img src="./img/avatar.png" alt="avatar" data-avatar-header />
                                     </div>
                                     <div class="header__gretting-text">
                                         Привет, <br />
@@ -140,7 +140,72 @@
                         <div class="page__toolbar toolbar">
                             <div class="toolbar__left">Сортировка</div>
 
-                            <div class="toolbar__center">Фильтр</div>
+                            <div class="toolbar__center" data-select-filter-mobile>
+                                Фильтр
+                                <ul class="toolbar_filter_list" data-filter-menu-mobile>
+                                    <li class="toolbar_filter_item">
+                                        <input
+                                            id="toolbar_filter__radio-btn1"
+                                            class="toolbar_filter__radio-btn"
+                                            name="radio-filter"
+                                            type="radio"
+                                            checked
+                                            data-filter-tasks="all"
+                                        />
+                                        <label
+                                            for="toolbar_filter__radio-btn1"
+                                            class="toolbar_filter__radio-btn-label"
+                                            data-filter-tasks="all"
+                                            >Все</label
+                                        >
+                                    </li>
+                                    <li class="toolbar_filter_item">
+                                        <input
+                                            id="toolbar_filter__radio-btn2"
+                                            class="toolbar_filter__radio-btn"
+                                            name="radio-filter"
+                                            type="radio"
+                                            data-filter-tasks="in progress"
+                                        />
+                                        <label
+                                            for="toolbar_filter__radio-btn2"
+                                            class="toolbar_filter__radio-btn-label"
+                                            data-filter-tasks="in progress"
+                                            >Активные</label
+                                        >
+                                    </li>
+                                    <li class="toolbar_filter_item">
+                                        <input
+                                            id="toolbar_filter__radio-btn3"
+                                            class="toolbar_filter__radio-btn"
+                                            name="radio-filter"
+                                            type="radio"
+                                            data-filter-tasks="done"
+                                        />
+                                        <label
+                                            for="toolbar_filter__radio-btn3"
+                                            class="toolbar_filter__radio-btn-label"
+                                            data-filter-tasks="done"
+                                            >Выполненые</label
+                                        >
+                                    </li>
+                                    <li class="toolbar_filter_item">
+                                        <input
+                                            id="toolbar_filter__radio-btn4"
+                                            class="toolbar_filter__radio-btn"
+                                            name="radio-filter"
+                                            type="radio"
+                                            data-filter-tasks="deleted"
+                                        />
+                                        <label
+                                            for="toolbar_filter__radio-btn4"
+                                            class="toolbar_filter__radio-btn-label"
+                                            data-filter-tasks="deleted"
+                                            >Удаленные</label
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
 
                             <div class="toolbar__right" data-search-tasks>
                                 <div class="toolbar__search-icon" data-search-tasks>
@@ -256,6 +321,30 @@
                             <div class="settings__item">
                                 <div class="settings__label-name">Местоположение</div>
                                 <input type="text" class="settings__input" placeholder="Введите город" data-input-settings-town />
+                            </div>
+                            <div class="settings__select-gender">
+                                <div class="settings__label-name">Пол</div>
+                                <div class="settings__select-gender-list">
+                                    <div class="settings__select-gender-item">
+                                        <input
+                                            id="select-gender1"
+                                            class="item-theme__radio-custom"
+                                            name="select-gender"
+                                            type="radio"
+                                            checked
+                                        />
+                                        <label for="select-gender1" class="item-theme__radio-custom-label">Мужской</label>
+                                    </div>
+                                    <div class="settings__select-gender-item">
+                                        <input
+                                            id="select-gender2"
+                                            class="item-theme__radio-custom"
+                                            name="select-gender"
+                                            type="radio"
+                                        />
+                                        <label for="select-gender2" class="item-theme__radio-custom-label">Женский</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -380,7 +469,7 @@
             </div>
         </div>
 
-        <div class="pop-up-first-enter active" data-manual-slider>
+        <div class="pop-up-first-enter" data-manual-slider>
             <div class="pop-up-first-enter__container">
                 <!-- First -->
                 <div class="pop-up-first-enter__body active" data-manual-slide-number="1">

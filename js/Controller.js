@@ -2,6 +2,7 @@ import View from "./View.js";
 import Model from "./Model.js";
 
 View.checkUserName(Model.userSettings.userName);
+View.checkUserGender(Model.userSettings.gender);
 View.checkUserTheme(Model.userSettings.theme);
 View.renderTasks(Model.getTasksFromLocalStorage());
 View.setDefaultValueFromData(Model.userSettings);
@@ -9,6 +10,8 @@ View.checkProgressBarNumbers(Model.getTastStatus()[1], Model.getTastStatus()[0],
 View.showCurrentDateAndTime();
 if (!Model.isShowManualOnStart()) {
     View.deleteAndCloseManual();
+} else {
+    View.showManual();
 }
 const userTown = Model.userSettings.location;
 Model.getWeather(userTown, true).then((data) => View.showWeather(data));
@@ -86,6 +89,7 @@ document.addEventListener("click", function (e) {
         const filter = Model.filterTasksByFilter(e.target.getAttribute("data-filter-tasks"));
         View.renderDeletedTasks(filter);
         View.changeHeaderTheme(e.target.getAttribute("data-filter-tasks"));
+        View.hideMenuFilterMobile();
     }
 
     if (e.target.hasAttribute("data-open-settings-id")) {
@@ -157,6 +161,10 @@ document.addEventListener("click", function (e) {
         if (e.target.getAttribute("data-clear-items") === "all") {
             View.toggleCheckAllClearItems(e.target.checked);
         }
+    }
+
+    if (e.target.hasAttribute("data-select-filter-mobile")) {
+        View.showFiltersMobile();
     }
 });
 

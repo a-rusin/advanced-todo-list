@@ -17,6 +17,7 @@ const Model = (function () {
             location: "Томск",
             theme: "light",
             firstTime: true,
+            gender: "male",
         },
     };
 
@@ -34,6 +35,7 @@ const Model = (function () {
             state.settings.userName = data.userName;
             state.settings.theme = data.theme;
             state.settings.location = data.town;
+            state.settings.gender = data.gender;
             clearTasks(data.markedCheckboxes);
             localStorage.setItem("taskState", JSON.stringify(state));
             return true;

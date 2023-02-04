@@ -28,9 +28,14 @@ const View = (function () {
         sliderManual.popUp.remove();
     };
 
+    const showManual = () => {
+        sliderManual.popUp.classList.add("active");
+    };
+
     // HEADER ======================================================================== //
 
     const header = {
+        userAvatar: document.querySelector("[data-avatar-header]"),
         userName: document.querySelector("[data-user-name]"),
         userLocation: document.querySelector("[data-user-location]"),
         cssTheme: document.querySelector("#theme"),
@@ -116,6 +121,14 @@ const View = (function () {
         header.userName.textContent = user;
     };
 
+    const checkUserGender = (gender) => {
+        if (gender === "male") {
+            header.userAvatar.src = "./img/avatar.png";
+        } else {
+            header.userAvatar.src = "./img/avatar2.png";
+        }
+    };
+
     const checkUserTheme = (theme) => {
         header.cssTheme.href = `./css/${theme}-mode.css`;
     };
@@ -135,6 +148,8 @@ const View = (function () {
         inputLightTheme: document.querySelector("#radio-1-light-theme"),
         inputDarkTheme: document.querySelector("#radio-1-dark-theme"),
         deleteTasksCheckboxes: document.querySelectorAll("[data-clear-items]"),
+        genderMale: document.querySelector("#select-gender1"),
+        genderFemale: document.querySelector("#select-gender2"),
     };
 
     const setDefaultValueFromData = (data) => {
@@ -148,6 +163,14 @@ const View = (function () {
         } else if (data.theme === "dark") {
             popUpSettings.inputDarkTheme.checked = true;
             popUpSettings.inputLightTheme.checked = false;
+        }
+
+        if (data.gender === "male") {
+            popUpSettings.genderMale.checked = true;
+            popUpSettings.genderFemale.checked = false;
+        } else if (data.gender === "female") {
+            popUpSettings.genderFemale.checked = true;
+            popUpSettings.genderMale.checked = false;
         }
     };
 
@@ -172,6 +195,7 @@ const View = (function () {
             userName: popUpSettings.inputName.value,
             town: popUpSettings.inputTown.value,
             theme: popUpSettings.inputLightTheme.checked ? "light" : "dark",
+            gender: popUpSettings.genderMale.checked ? "male" : "female",
             markedCheckboxes: markedCheckboxes,
         };
     };
@@ -214,6 +238,22 @@ const View = (function () {
             description: popUpEditTask.inputDescription.value,
             tags: popUpEditTask.inputTags.value.split(","),
         };
+    };
+
+    // Filter mobile
+
+    const filterMobile = {
+        list: document.querySelector("[data-filter-menu-mobile]"),
+    };
+
+    const showFiltersMobile = () => {
+        filterMobile.list.classList.toggle("active");
+    };
+
+    const hideMenuFilterMobile = () => {
+        if (filterMobile.list) {
+            filterMobile.list.classList.remove("active");
+        }
     };
 
     // ADD TASK ======================================================================== //
@@ -702,6 +742,10 @@ const View = (function () {
         getEditedTask: getEditedTask,
         scrollUp: scrollUp,
         toggleCheckAllClearItems: toggleCheckAllClearItems,
+        showFiltersMobile: showFiltersMobile,
+        hideMenuFilterMobile: hideMenuFilterMobile,
+        checkUserGender: checkUserGender,
+        showManual: showManual,
     };
 })();
 
