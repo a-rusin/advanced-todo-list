@@ -525,6 +525,10 @@ body {
     display: flex;
 }
 
+.add-contaienr__datepicker {
+    width: 50px;
+}
+
 @media (max-width: 530px) {
     .add-container__hidden-state {
         padding: 15px 20px;
@@ -936,6 +940,7 @@ body {
 .item-task__tags {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 .tag {
@@ -951,8 +956,8 @@ body {
     padding: 10px 20px;
     border: 1px solid #8b8da1;
     border-radius: 8px;
-    margin-right: 40px;
     gap: 5px;
+    margin-right: 10px;
 }
 
 .tag__time::before {
@@ -1173,9 +1178,6 @@ body {
     .item-task__tags {
         flex-wrap: wrap;
         left: 0px;
-    }
-    .tag__time {
-        margin-bottom: 10px;
     }
 }
 

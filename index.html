@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="./css/reset.css" />
         <link rel="stylesheet" href="./css/font.css" />
         <link rel="stylesheet" href="./css/light-mode.css" id="theme" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
         <link rel="icon" href="./favicon.ico" type="image/x-icon" />
         <title>ToDo List</title>
     </head>
@@ -76,7 +77,16 @@
                                 <input type="text" class="add-container__tags" placeholder="Укажите теги через запятую" />
                                 <div class="add-container__btns">
                                     <div class="add-container_btn-left">
-                                        <button class="add-container__date">Дата</button>
+                                        <button class="add-container__date">
+                                            <form>
+                                                <input
+                                                    type="text"
+                                                    class="add-contaienr__datepicker"
+                                                    id="datepicker"
+                                                    placeholder="Дата"
+                                                />
+                                            </form>
+                                        </button>
                                         <div class="container__priorety-block">
                                             <button class="add-container__priorety" data-priorety-open-select>Приоритет</button>
                                             <ul class="add-container__priorety-list" data-priorety-open-select-list>
@@ -276,8 +286,10 @@
                             </ul>
                         </div>
                     </div>
+                    <div></div>
                 </main>
             </div>
+
             <footer class="footer">
                 <div class="container footer__container">
                     <div class="footer__left">
@@ -560,6 +572,13 @@
             </div>
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script type="module" src="./js/Controller.js"></script>
+        <script>
+            config = {
+                dateFormat: "d-m",
+            };
+            flatpickr("#datepicker", config);
+        </script>
     </body>
 </html>

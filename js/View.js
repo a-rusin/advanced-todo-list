@@ -316,6 +316,7 @@ const View = (function () {
         inputTitle: document.querySelector(".add-container__title"),
         inputDescription: document.querySelector(".add-container__description"),
         inputTags: document.querySelector(".add-container__tags"),
+        inputDate: document.querySelector("#datepicker"),
     };
 
     const getInputsDataTask = (id) => {
@@ -326,6 +327,10 @@ const View = (function () {
             priorety = "";
         }
         const tags = taskElemenents.inputTags.value.length === 0 ? [] : taskElemenents.inputTags.value.split(",");
+        const date =
+            taskElemenents.inputDate.value.length === 0
+                ? ""
+                : taskElemenents.inputDate.value.split("-")[0] + "." + taskElemenents.inputDate.value.split("-")[1];
         return {
             id: id,
             name: taskElemenents.inputTitle.value,
@@ -333,6 +338,7 @@ const View = (function () {
             tags: tags,
             priorety: priorety,
             status: "in progress",
+            date: date,
         };
     };
 
@@ -376,6 +382,7 @@ const View = (function () {
         taskElemenents.inputTitle.value = "";
         taskElemenents.inputDescription.value = "";
         taskElemenents.inputTags.value = "";
+        taskElemenents.inputDate.value = "";
         removeActiveClassPrioretyItems();
         hidePrioretyList();
         addTaskForm.selectPrioretyBtn.style.background = "#fff";
@@ -384,8 +391,15 @@ const View = (function () {
     };
 
     const addTask = (data, newId) => {
-        if (data.name.length === 0 || data.description.length === 0 || data.tags.length === 0 || data.priorety.length === 0) {
+        if (
+            data.name.length === 0 ||
+            data.description.length === 0 ||
+            data.tags.length === 0 ||
+            data.priorety.length === 0 ||
+            data.date.length === 0
+        ) {
             alert("Заполните все поля!");
+            console.log(data);
             return false;
         }
         const renderTag = data.tags
@@ -412,7 +426,7 @@ const View = (function () {
                 ${data.description}
                 </div>
                 <div class="item-task__tags tag">
-                    <button class="tag__time">15.02</button>
+                    <button class="tag__time">${data.date}</button>
                     <ul class="tag__category">
                     ${renderTag}
                     </ul>
@@ -483,7 +497,7 @@ const View = (function () {
                     ${task.description}
                     </div>
                     <div class="item-task__tags tag">
-                        <button class="tag__time">15.02</button>
+                        <button class="tag__time">${task.date}</button>
                         <ul class="tag__category">
                             ${renderTag}
                         </ul>

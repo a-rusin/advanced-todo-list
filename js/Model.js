@@ -5,7 +5,7 @@ const Model = (function () {
                 id: 0,
                 name: "Настройка приложения",
                 description: "Зайди в настройки профиля (шестеренка около имени пользователя) и настрой его под себя",
-                date: "19.02",
+                date: new Date().toLocaleDateString().split(".")[0] + "." + new Date().toLocaleDateString().split(".")[1],
                 tags: ["Другое", "Личное"],
                 priorety: "high",
                 status: "in progress",
@@ -58,7 +58,13 @@ const Model = (function () {
     };
 
     const addNewTaskToLocalStorage = (data) => {
-        if (data.name.length === 0 || data.description.length === 0 || data.tags.length === 0 || data.priorety.length === 0) {
+        if (
+            data.name.length === 0 ||
+            data.description.length === 0 ||
+            data.tags.length === 0 ||
+            data.priorety.length === 0 ||
+            data.date.length === 0
+        ) {
             return;
         }
         state.tasks.push(data);
