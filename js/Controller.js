@@ -14,7 +14,7 @@ if (!Model.isShowManualOnStart()) {
     View.showManual();
 }
 const userTown = Model.userSettings.location;
-Model.getWeather(userTown, false).then((data) => View.showWeather(data));
+Model.getWeather(userTown, true).then((data) => View.showWeather(data));
 
 document.addEventListener("click", function (e) {
     if (e.target.hasAttribute("data-scroll-up")) {
